@@ -1,1 +1,11 @@
 #+title: MSLab
+
+Currently I am working under a scholarship in MSLab, with the supervision of Dr. Miguel Ángel Otaduy in Universidad Rey Juan Carlos in Madrid.
+
+I am doing my master's thesis about differentiable simulation, where the challenge is to find a set of physical parameters and initial conditions which make the simulation as close as possible to some reference data.
+The process to find this parameters relates closely with the training of neural networks, using back propagation and chain rule to find out which parameters need to be changed to reduce the error of the simulation.
+
+The project is currently being developed using C++ and python. The heavy lifting of the simulation is done by a C++ core which acts like a server, and python is used as a client which can interact with this core.
+The back propagation is implemented in python to be able to use python modules to solve the minimization problem.
+
+[[file:index.org][Go Back]]
