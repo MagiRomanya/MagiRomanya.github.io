@@ -1,3 +1,3 @@
-#+title: Index
+#+title: Text
 
 This is a test of building the website.
