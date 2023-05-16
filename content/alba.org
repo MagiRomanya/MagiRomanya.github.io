@@ -1,4 +1,6 @@
 #+title: ALBA Synchrotron
 
+[[file:ALBA_LOGO.png]]
+
 
 [[file:index.org][Go Back]]

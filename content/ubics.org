@@ -1,6 +1,6 @@
 #+title: Intership in UBICS
 
-[[file:~/Documents/PROJECTS/PersonalWebsite/resources/UBICS_LOGO.jpg]]
+[[file:UBICS_LOGO.jpg]]
 
 UBICS is the University of Barcelona Institute of Complex Systems. From 2021 July to November, I was working under the tutelage of Dr. Albert Díaz, dealing with large sets of bibliometric data.
 
