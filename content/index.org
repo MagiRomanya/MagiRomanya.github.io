@@ -11,7 +11,7 @@ Here I present a list of the interships or projects I've been involved during my
 - ALBA Synchrotron: Designing an electron beam simulation from a thermionic RF-gun.
 - [[file:ubics.org][UBICS]]: Working with large sets of bibliometric data.
 * CV
-Please, download my resume [[https://github.com/MagiRomanya/MagiRomanya.github.io/blob/main/resources/cv.pdf][here]].
+Please, download my resume [[file:cv.pdf][here]].
 * Contact information
 - [[mailto:magiromanya@gmail.com][Email: magiromanya@gmail.com]]
 - [[https://github.com/MagiRomanya][GitHub: MagiRomanya]]
