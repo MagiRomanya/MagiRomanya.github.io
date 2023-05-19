@@ -12,5 +12,6 @@ The main challenge in this project was to deal with typos and fields written dif
 This means, for example, being able to identify that "Magí Romanyà Serrasolsas" is the same author as "Magí R.S." or "magi romanya serrasolsas".
 I had to come up with a way to deal with this in a semi-automatic manner.
 
+Check out the project web page [[https://complemetrix.net/][here]].
 
 [[file:index.org][Go Back]]
