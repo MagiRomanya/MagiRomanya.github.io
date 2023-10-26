@@ -1,6 +1,8 @@
 #+title: Magí Romanyà
 # #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
+[[file:differential_simulation.org][Differentiable simulation]]
+
 * About me
 I'm a physicist graduated at Universitat de Barcelona in 2022.
 Currently I am finishing a master's degree in computer graphics at Universidad Rey Juan Carlos, Madrid.

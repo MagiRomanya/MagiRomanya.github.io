@@ -148,13 +148,16 @@ dphi_dp += dphi_ds[0] @ partial_ds0_dp()
 
 With this, the implementation of back-propagation is completed, and our simulation can now compute cost function gradients, and thus can be easily optimized.
 * Online implementation
+Here there is a little example showing a differentiable simulation of a ball being thrown to a target.
+Once the ball reaches the target, a new target is created randomly.
+This is an extremely simple situation with an explicit integrator, and it is easy to implement even in a browser.
 #+BEGIN_EXPORT HTML
-<canvas id="c"></canvas>
+<canvas id="c" width="800" height="600"></canvas>
 <script  type="importmap">{
 	"imports": {
 		"three": "https://threejs.org/build/three.module.js"
 	}
 }</script>
-<script type="module" src=demo.js"></script>
+<script type="module" src="demo.js"></script>
 #+END_EXPORT
 #  LocalWords:  discretization
