@@ -139,15 +139,30 @@ function main() {
 	const sphere_geometry = new THREE.SphereGeometry(sphere_radius);
 	const target_geometry = new THREE.SphereGeometry(0.2);
 	const plane_geometry = new THREE.PlaneGeometry(50, 50, 10, 10);
+	const cylinder_geometry = new THREE.CylinderGeometry(0.02,0.02,30, 1000);
 
 	const wireframe_material = new THREE.MeshBasicMaterial({ color: wireframe_color, wireframe: true });
 	const plane_material = new THREE.MeshPhongMaterial({ color: 0x44aa88 }); // greenish blue
 	const material = new THREE.MeshPhongMaterial({ color: 0x3498eb }); // greenish blue
 	const target_material = new THREE.MeshPhongMaterial({ color: 0xFFA500 }); // greenish blue
 
+	const red_material = new THREE.MeshBasicMaterial({ color: 0xFF0000 }); // greenish blue
+	const blue_material = new THREE.MeshBasicMaterial({ color: 0x00FF00 }); // greenish blue
+	const green_material = new THREE.MeshBasicMaterial({ color: 0x0000FF }); // greenish blue
+
 	const ball = new THREE.Mesh(sphere_geometry, material);
 	const plane = new THREE.Mesh(plane_geometry, plane_material);
 	const target = new THREE.Mesh(target_geometry, target_material);
+
+	const x_axis = new THREE.Mesh(cylinder_geometry, red_material);
+	const y_axis = new THREE.Mesh(cylinder_geometry, blue_material);
+	const z_axis = new THREE.Mesh(cylinder_geometry, green_material);
+	x_axis.rotation.x -= Math.PI / 2.;
+	z_axis.rotation.x -= Math.PI / 2.;
+	z_axis.rotation.z -= Math.PI / 2.;
+	scene.add(x_axis);
+	scene.add(y_axis);
+	scene.add(z_axis);
 
 	plane.receiveShadow = true;
 	ball.castShadow = true;
@@ -176,6 +191,9 @@ function main() {
 		positions_array.push(position);
 		velocities_array.push(velocity);
 		ball.position.copy(position);
+		x_axis.position.copy(position);
+		y_axis.position.copy(position);
+		z_axis.position.copy(position);
 		if (positions_array.length > MAX_ITER) {
 			let dphi_dp = compute_dphi_dp(positions_array, velocities_array);
 			// Gradient descent
