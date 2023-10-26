@@ -175,6 +175,7 @@ function main() {
 		time *= 0.001;  // convert time to seconds
 		positions_array.push(position);
 		velocities_array.push(velocity);
+		ball.position.copy(position);
 		if (positions_array.length > MAX_ITER) {
 			let dphi_dp = compute_dphi_dp(positions_array, velocities_array);
 			// Gradient descent
@@ -182,7 +183,7 @@ function main() {
 			console.log(phi(position))
 			console.log(position)
 
-			// New target if current is done
+			// New target if current has already converged
 			if (phi(position) < 0.01) {
 				new_target_position();
 				target.position.copy(target_position);
@@ -193,7 +194,6 @@ function main() {
 			positions_array = [];
 			velocities_array = [];
 		}
-		ball.position.copy(position);
 		let result = F(position, velocity);
 		position.copy(result.new_position);
 		velocity.copy(result.new_velocity);
