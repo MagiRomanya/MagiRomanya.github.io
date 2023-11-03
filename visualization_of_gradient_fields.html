@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Visualization Of Gradient Fields</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Magí Romanyà Serrasolsas" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Visualization Of Gradient Fields</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga7302d6">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></li>
+<li><a href="#org0ea6437">The geometry problem</a></li>
+</ul>
+</div>
+</div>
+<p>
+I've decided to write this article because I've encountered a number of problems while trying to visualize gradients as arrow fields in a 2 dimensional plot.
+Some of these were problems related with me not using correctly certain python libraries and others were concerned with some unexpected geometry scaling.
+</p>
+
+<div id="outline-container-orga7302d6" class="outline-2">
+<h2 id="orga7302d6">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</h2>
+<div class="outline-text-2" id="text-orga7302d6">
+<p>
+First let's discuss how to use correctly use <code>matplotlib</code> and <code>numpy</code> to compute and plot a two dimensional gradient field.
+We are going to discuss an example where we want to plot the function \(z(x,y) = x^2 +y\) as level curves and also it's gradient fields.
+To plot two dimensional functions we usually have to use the <code>numpy.meshgrid</code> function.
+However, calling this function in the default way, it returns first \(y\) and then \(x\).
+To prevent this behavior we have to use the argument <code>indexing='ij'</code>.
+We are going to use the <code>numpy.gradients</code> function to compute the gradients, which uses finite differences.
+A default call to this function only requires the \(x,y,z\) values and it is going to assume the finite differences step.
+It is important to provide the \(dx\) and \(dy\) values in order to compute the correct gradients.
+The last problem appears when trying to plot the gradients as arrows using the <code>matplotlib.pyplot.quiver</code>.
+It is essential to set the following function arguments <code>angles='xy', scale_units='xy', scale=1</code> to tell matplotlib that we want our gradients to be plotted in the correct coordinate system.
+The <code>scale</code> parameter is going to scale the lengths of the arrows <b>inversely</b> and can be adjusted as needed.
+Here we have the code for the completed process of the computation of function \(z\), its gradients and also the visualization.
+Note all the parameters that we have to introduce to get the expected result.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="font-weight: bold;">import</span> matplotlib.pyplot <span style="font-weight: bold;">as</span> plt
+<span style="font-weight: bold;">import</span> numpy <span style="font-weight: bold;">as</span> np
+<span style="font-weight: bold; font-style: italic;">x_values</span> = np.linspace(0, 1, 15)
+<span style="font-weight: bold; font-style: italic;">y_values</span> = np.linspace(0, 1, 15)
+<span style="font-weight: bold; font-style: italic;">X</span>, <span style="font-weight: bold; font-style: italic;">Y</span> = np.meshgrid(x_values, y_values, indexing=<span style="font-style: italic;">'ij'</span>)
+<span style="font-weight: bold; font-style: italic;">Z</span> = X**2 + Y
+<span style="font-weight: bold; font-style: italic;">dx</span> = x_values[1] - x_values[0]
+<span style="font-weight: bold; font-style: italic;">dy</span> = y_values[1] - y_values[0]
+<span style="font-weight: bold; font-style: italic;">grad_x</span>, <span style="font-weight: bold; font-style: italic;">grad_y</span> = np.gradient(Z, dx, dy)
+plt.contourf(X, Y, Z, levels=10) <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Plot the color map with level curves</span>
+plt.quiver(X, Y, grad_x, grad_y, color=<span style="font-style: italic;">'honeydew'</span>, angles=<span style="font-style: italic;">"xy"</span>) <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Plot the gradient field</span>
+plt.show()
+</pre>
+</div>
+
+<div class="figure">
+<p><img src="./resources/gradients1.png" alt="gradients1.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0ea6437" class="outline-2">
+<h2 id="org0ea6437">The geometry problem</h2>
+<div class="outline-text-2" id="text-org0ea6437">
+<p>
+With this, we have seemingly been able to compute the gradients and plot them correctly.
+However if we make the same plot but with a different domain \(x\in [0,1]\), \(y\in [0,10]\) we get the figure:
+<img src="./resources/gradients2.png" alt="gradients2.png" />
+</p>
+
+<p>
+The thing with this result, is that the gradient field is not perpendicular to the level curves, as we would expect.
+This happens because now that we have changed the domain, we have a \(y\) axis which has been compressed to fit 10 units in the size of 1.
+Consequently the gradients also have been squished in the \(y\) axis.
+<b>This is not a bug but the correct representation</b>.
+However, we might want our gradient visualization to be perpendicular to the level curves.
+This can be done by defining a scale ratio variable \(s = \frac{\textrm{y scale}}{\textrm{x scale}}\).
+With this we have to apply the following transformation to the gradients:
+\[|\vec{\nabla} z| = \sqrt{{\frac{\partial z}{\partial x}}^2 + {\frac{\partial z}{\partial y}}^2}\]
+\[A = \sqrt{\left(\frac{\partial z}{\partial x}\cdot s^2\right)^2 + {\frac{\partial z}{\partial y}}^2}\]
+\[\vec{\nabla} z_\textrm{perpendicular} = \left(\frac{\partial z}{\partial x}\cdot s^2, \frac{\partial z}{\partial y}\right)\frac{A}{|\vec{\nabla} z|}\]
+</p>
+
+<p>
+Here we have the python code to implement this, which is easier than the math might seem, as well as the output figure:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="font-weight: bold;">import</span> matplotlib.pyplot <span style="font-weight: bold;">as</span> plt
+<span style="font-weight: bold;">import</span> numpy <span style="font-weight: bold;">as</span> np
+<span style="font-weight: bold; font-style: italic;">x_values</span> = np.linspace(0, 1, 15)
+<span style="font-weight: bold; font-style: italic;">y_values</span> = np.linspace(0, 10, 15)
+<span style="font-weight: bold; font-style: italic;">scale</span> = (1 / 10)**2
+<span style="font-weight: bold; font-style: italic;">X</span>, <span style="font-weight: bold; font-style: italic;">Y</span> = np.meshgrid(x_values, y_values, indexing=<span style="font-style: italic;">'ij'</span>)
+<span style="font-weight: bold; font-style: italic;">Z</span> = X**2 + Y
+<span style="font-weight: bold; font-style: italic;">dx</span> = x_values[1] - x_values[0]
+<span style="font-weight: bold; font-style: italic;">dy</span> = y_values[1] - y_values[0]
+<span style="font-weight: bold; font-style: italic;">grad_x</span>, <span style="font-weight: bold; font-style: italic;">grad_y</span> = np.gradient(Z, dx, dy)
+<span style="font-weight: bold; font-style: italic;">true_norm</span> = np.sqrt((grad_x)**2 + grad_y**2)
+<span style="font-weight: bold; font-style: italic;">norm</span> = np.sqrt((grad_x*scale)**2 + grad_y**2)
+plt.contourf(X, Y, Z, levels=10)
+plt.quiver(X, Y, grad_x/norm*scale*true_norm, grad_y/norm*true_norm, color=<span style="font-style: italic;">'honeydew'</span>, angles=<span style="font-style: italic;">"xy"</span>)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./resources/gradients3.png" alt="gradients3.png" />
+</p>
+</div>
+
+<p>
+The result is a gradient field that is perpendicular to the level curves.
+Note that the scaling does not only depend on the domain of the \(x\) and \(y\) axis, but also witht he aspect ratio of the figure.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Magí Romanyà Serrasolsas</p>
+</div>
+</body>
+</html>

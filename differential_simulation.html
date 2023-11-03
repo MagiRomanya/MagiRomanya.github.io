@@ -42,18 +42,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1cd840d">Why differentiable simulation</a>
+<li><a href="#org343c104">Why differentiable simulation</a>
 <ul>
-<li><a href="#org3da886c">A simple example</a></li>
+<li><a href="#org9df3a2f">A simple example</a></li>
 </ul>
 </li>
-<li><a href="#org301020b">The math behind computing the gradients: back propagation</a>
+<li><a href="#orgd0ff720">The math behind computing the gradients: back propagation</a>
 <ul>
-<li><a href="#orgb41bd86">The \(\mathbf{F}\) function</a></li>
+<li><a href="#org93347c3">The \(\mathbf{F}\) function</a></li>
 </ul>
 </li>
-<li><a href="#org9ff398b">Simple implementation overview</a></li>
-<li><a href="#orgb68234c">Online implementation</a></li>
+<li><a href="#org70392bc">Simple implementation overview</a></li>
+<li><a href="#org7add009">Online implementation</a></li>
 </ul>
 </div>
 </div>
@@ -62,9 +62,9 @@ This article is meant to give easy to follow instructions and requirements to ma
 But first let's talk about what <i>is</i> a differentiable simulation and why it can be useful.
 </p>
 
-<div id="outline-container-org1cd840d" class="outline-2">
-<h2 id="org1cd840d">Why differentiable simulation</h2>
-<div class="outline-text-2" id="text-org1cd840d">
+<div id="outline-container-org343c104" class="outline-2">
+<h2 id="org343c104">Why differentiable simulation</h2>
+<div class="outline-text-2" id="text-org343c104">
 <p>
 The need of differentiable simulations arises when trying to control autonomous physical systems.
 Regular simulations are great tools to predict the trajectory of systems by applying a set of physical laws.
@@ -83,9 +83,9 @@ A differentiable simulation is a regular simulation that is also capable of comp
 </blockquote>
 </div>
 
-<div id="outline-container-org3da886c" class="outline-3">
-<h3 id="org3da886c">A simple example</h3>
-<div class="outline-text-3" id="text-org3da886c">
+<div id="outline-container-org9df3a2f" class="outline-3">
+<h3 id="org9df3a2f">A simple example</h3>
+<div class="outline-text-3" id="text-org9df3a2f">
 <p>
 To illustrate the need of differentiable simulations, let's introduce a simple example.
 We have a simple simulation of a ball in free-fall, and we want to simulate a scene where the ball is thrown inside a basket.
@@ -98,9 +98,9 @@ Moreover, if our ball simulation is differentiable, the minimization process wil
 </div>
 </div>
 
-<div id="outline-container-org301020b" class="outline-2">
-<h2 id="org301020b">The math behind computing the gradients: back propagation</h2>
-<div class="outline-text-2" id="text-org301020b">
+<div id="outline-container-orgd0ff720" class="outline-2">
+<h2 id="orgd0ff720">The math behind computing the gradients: back propagation</h2>
+<div class="outline-text-2" id="text-orgd0ff720">
 <p>
 In this section we are going to give a high level overview of how does the computation of gradients play out in differentiable simulations.
 It is not essential to understand all of it, but it can be useful in order to adapt the math to specific situations.
@@ -141,9 +141,9 @@ The last state derivative is trivial to compute, as there is no following state 
 \frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}} = \frac{\partial \phi}{\partial \mathbf{s}_{N_s}}
 \end{equation}
 </div>
-<div id="outline-container-orgb41bd86" class="outline-3">
-<h3 id="orgb41bd86">The \(\mathbf{F}\) function</h3>
-<div class="outline-text-3" id="text-orgb41bd86">
+<div id="outline-container-org93347c3" class="outline-3">
+<h3 id="org93347c3">The \(\mathbf{F}\) function</h3>
+<div class="outline-text-3" id="text-org93347c3">
 <p>
 We have introduced the \(\mathbf{F}\) function, as a way of computing a state from the previous one \(\mathbf{s}_{i} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})\).
 The function \(\mathbf{F}\) is defined by the integration scheme used in the simulation, and it represents an integration step.
@@ -197,9 +197,9 @@ A_i = M - \Delta t\left.\frac{\partial\mathbf{f}}{\partial\mathbf{v}}\right|_i -
 </div>
 </div>
 </div>
-<div id="outline-container-org9ff398b" class="outline-2">
-<h2 id="org9ff398b">Simple implementation overview</h2>
-<div class="outline-text-2" id="text-org9ff398b">
+<div id="outline-container-org70392bc" class="outline-2">
+<h2 id="org70392bc">Simple implementation overview</h2>
+<div class="outline-text-2" id="text-org70392bc">
 <p>
 With the math knowledge in our belts, we can write a basic implementation of how back propagation would be implemented.
 We are going to use Python to make the code readable and easy to run anywhere.
@@ -261,9 +261,9 @@ With this, the implementation of back-propagation is completed, and our simulati
 </p>
 </div>
 </div>
-<div id="outline-container-orgb68234c" class="outline-2">
-<h2 id="orgb68234c">Online implementation</h2>
-<div class="outline-text-2" id="text-orgb68234c">
+<div id="outline-container-org7add009" class="outline-2">
+<h2 id="org7add009">Online implementation</h2>
+<div class="outline-text-2" id="text-org7add009">
 <p>
 Here there is a little example showing a differentiable simulation of a ball being thrown to a target.
 Once the ball reaches the target, a new target is created randomly.
