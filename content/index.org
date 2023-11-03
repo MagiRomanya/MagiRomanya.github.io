@@ -1,21 +1,24 @@
 #+title: Magí Romanyà
 # #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
-[[file:differential_simulation.org][Differentiable simulation]]
 
 * About me
 I'm a physicist graduated at Universitat de Barcelona in 2022.
 Currently I am finishing a master's degree in computer graphics at Universidad Rey Juan Carlos, Madrid.
 Also I'm in a scholarship under Dr. Miguel Ángel Otaduy, working in differentiable physics simulations in computer graphics.
 
+* Web articles
+- [[file:visualization_of_gradient_fields.org][Visualization of gradient fields]]
+- [[file:differential_simulation.org][Differentiable simulation]]
+
 * Projects
-Here I present a list of the interships or projects I've been involved during my career.
+Here I present a list of the internships or projects I've been involved during my career.
 - [[file:mslab.org][MSLab]]: Doing master's thesis in differentiable simulation in computer graphics.
 - [[file:tfg.org][Undergraduate Thesis Project (or TFG)]]: Computing crustal deformation of the Iberian Peninsula.
 - [[file:alba.org][ALBA Synchrotron]]: Designing an electron beam simulation from a thermionic RF-gun.
 - [[file:ubics.org][UBICS]]: Working with large sets of bibliometric data.
 * CV
-Please, download my resume [[file:resources/cv.pdf][here]].
+Please, reach out and I will gladly send my resume.
 * Contact information
 - [[mailto:magiromanya@gmail.com][Email: magiromanya@gmail.com]]
 - [[https://github.com/MagiRomanya][GitHub: MagiRomanya]]
