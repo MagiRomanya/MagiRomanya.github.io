@@ -61,7 +61,7 @@ function partial_dF_dv(position, velocity) {
 function compute_dphi_dp(positions, velocities) {
 	// Number of simulation steps
 	const Ns = positions.length - 1;
-	console.log(Ns);
+	// console.log(Ns);
 
 	// Initialize the array of total derivatives
 	let dphi_dx_array = [];
@@ -95,7 +95,7 @@ function compute_dphi_dp(positions, velocities) {
 	const dphi_dp = new THREE.Vector3();
 	// Use clone() to ensure the original vector is not modified
 	dphi_dp.copy(dphi_dv_array[0].clone().applyMatrix3(dv0dp));
-	console.log(dphi_dp);
+	// console.log(dphi_dp);
 	return dphi_dp;
 }
 
@@ -137,7 +137,7 @@ function main() {
 
 	const sphere_radius = 1;
 	const sphere_geometry = new THREE.SphereGeometry(sphere_radius);
-	const target_geometry = new THREE.SphereGeometry(0.2);
+	const target_geometry = new THREE.TorusGeometry(sphere_radius*1.5, 0.2);
 	const plane_geometry = new THREE.PlaneGeometry(50, 50, 10, 10);
 	const cylinder_geometry = new THREE.CylinderGeometry(0.02,0.02,30, 1000);
 
@@ -172,6 +172,7 @@ function main() {
 	plane.position.set(0, -sphere_radius*2.0, camera.position.z);
 	plane.rotation.x -= Math.PI/2.;
 	scene.add(plane);
+	target.rotation.x -= Math.PI/2.;
 	scene.add(target);
 
 	target.position.copy(target_position);
@@ -182,9 +183,11 @@ function main() {
 	const initial_position = new THREE.Vector3(0, 0, 0);
 	let initial_velocity = new THREE.Vector3(0, 1, 0);
 
-	const MAX_ITER = 50;
+	const DIFF_ITER = 50;
+	const MAX_ITER = 80;
 	let positions_array = [];
 	let velocities_array = [];
+	let achieved_position = new THREE.Vector3(0,0,0);
 
 	function render(time) {
 		time *= 0.001;  // convert time to seconds
@@ -194,19 +197,23 @@ function main() {
 		x_axis.position.copy(position);
 		y_axis.position.copy(position);
 		z_axis.position.copy(position);
-		if (positions_array.length > MAX_ITER) {
+		if (positions_array.length === DIFF_ITER) {
+			achieved_position.copy(position);
 			let dphi_dp = compute_dphi_dp(positions_array, velocities_array);
+
 			// Gradient descent
 			initial_velocity.sub(dphi_dp.clone().multiplyScalar(learning_rate));
-			console.log(phi(position))
-			console.log(position)
-
+			// console.log(phi(position))
+			// console.log(position)
+		}
+		if (positions_array.length > MAX_ITER) {
 			// New target if current has already converged
-			if (phi(position) < 0.01) {
+			if (phi(achieved_position) < 0.01) {
 				new_target_position();
 				target.position.copy(target_position);
 			}
 
+			// Reset simulation
 			position.copy(initial_position);
 			velocity.copy(initial_velocity);
 			positions_array = [];
