@@ -39,8 +39,8 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb4a7504">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></li>
-<li><a href="#org50ed2c7">The geometry problem</a></li>
+<li><a href="#orgf1ee650">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></li>
+<li><a href="#org103fbd9">The geometry problem</a></li>
 </ul>
 </div>
 </div>
@@ -49,9 +49,9 @@ I've decided to write this article because I've encountered a number of problems
 Some of these were problems related with me not using correctly certain python libraries and others were concerned with some unexpected geometry scaling.
 </p>
 
-<div id="outline-container-orgb4a7504" class="outline-2">
-<h2 id="orgb4a7504">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</h2>
-<div class="outline-text-2" id="text-orgb4a7504">
+<div id="outline-container-orgf1ee650" class="outline-2">
+<h2 id="orgf1ee650">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</h2>
+<div class="outline-text-2" id="text-orgf1ee650">
 <p>
 First let's discuss how to use correctly use <code>matplotlib</code> and <code>numpy</code> to compute and plot a two dimensional gradient field.
 We are going to discuss an example where we want to plot the function \(z(x,y) = x^2 +y\) as level curves and also it's gradient fields.
@@ -90,9 +90,9 @@ plt.show()
 </div>
 </div>
 
-<div id="outline-container-org50ed2c7" class="outline-2">
-<h2 id="org50ed2c7">The geometry problem</h2>
-<div class="outline-text-2" id="text-org50ed2c7">
+<div id="outline-container-org103fbd9" class="outline-2">
+<h2 id="org103fbd9">The geometry problem</h2>
+<div class="outline-text-2" id="text-org103fbd9">
 <p>
 With this, we have seemingly been able to compute the gradients and plot them correctly.
 However if we make the same plot but with a different domain \(x\in [0,1]\), \(y\in [0,10]\) we get the figure:
