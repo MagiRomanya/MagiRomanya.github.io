@@ -1,5 +1,5 @@
 #+TITLE: Differential Simulation and back-propagation
-#+SUBTITLE: A practical implementation guide
+# #+SUBTITLE: A practical implementation guide
 #+AUTHOR: Magí Romanyà Serrasolsas
 
 This article is meant to give easy to follow instructions and requirements to make an existing simulation differentiable.
