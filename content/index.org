@@ -8,6 +8,7 @@ Currently I am finishing a master's degree in computer graphics at Universidad R
 Also I'm in a scholarship under Dr. Miguel Ángel Otaduy, working in differentiable physics simulations in computer graphics.
 
 * Web articles
+- [[file:continuous_adjoint_method.org][Continuous adjoint method]]
 - [[file:visualization_of_gradient_fields.org][Visualization of gradient fields]]
 - [[file:differential_simulation.org][Differentiable simulation]]
 
