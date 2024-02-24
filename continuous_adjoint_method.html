@@ -39,16 +39,16 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga169c95">Introduction</a></li>
-<li><a href="#org4a4ea14">The problem setting</a></li>
-<li><a href="#org77734da">Solving the minimization problem</a></li>
+<li><a href="#org26ae022">Introduction</a></li>
+<li><a href="#orge7d96a1">The problem setting</a></li>
+<li><a href="#org6a6b1b0">Solving the minimization problem</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga169c95" class="outline-2">
-<h2 id="orga169c95">Introduction</h2>
-<div class="outline-text-2" id="text-orga169c95">
+<div id="outline-container-org26ae022" class="outline-2">
+<h2 id="org26ae022">Introduction</h2>
+<div class="outline-text-2" id="text-org26ae022">
 <p>
 In my master thesis, I've been working in propagating adjoints backwards, which looked like the discretization of solving an ODE in reverse.
 In this article, we are going to see that in fact, when using the back propagation algorithm, covered in this <a href="differential_simulation.html">article</a>, we are solving an ODE.
@@ -58,9 +58,9 @@ The work shown in this article relies heavily on the excellent standford tutoria
 </div>
 </div>
 
-<div id="outline-container-org4a4ea14" class="outline-2">
-<h2 id="org4a4ea14">The problem setting</h2>
-<div class="outline-text-2" id="text-org4a4ea14">
+<div id="outline-container-orge7d96a1" class="outline-2">
+<h2 id="orge7d96a1">The problem setting</h2>
+<div class="outline-text-2" id="text-orge7d96a1">
 <p>
 First we are going to write down our notation and describe the problem we want to solve.
 Analytically, solving a forward simulation, is equivalent as integrating a certain differential equation.
@@ -104,9 +104,9 @@ Where the \(\mathbf{f}\) and \(\mathbf{g}\) functions are the ODE and the initia
 </div>
 </div>
 
-<div id="outline-container-org77734da" class="outline-2">
-<h2 id="org77734da">Solving the minimization problem</h2>
-<div class="outline-text-2" id="text-org77734da">
+<div id="outline-container-org6a6b1b0" class="outline-2">
+<h2 id="org6a6b1b0">Solving the minimization problem</h2>
+<div class="outline-text-2" id="text-org6a6b1b0">
 <p>
 Now that we have the formulation of the problem, we can start solving it.
 The problem is formally known as a minimization with constraints and can be approached using lagrange multipliers.
