@@ -1,4 +1,5 @@
 #+title: Master's Thesis in MSLab: Differentiable simulation of mass-sprig simulations with contact
+#+author: Magí Romanyà Serrasolsas
 
 I did my master's thesis in MSLab under the supervision of Dr. Miguel Angel Otaduy.
 The main focus on the thesis was to investigate differentiable simulation when discontinuous contact interactions are introduced.
@@ -13,4 +14,5 @@ Our research introduces a novel derivation of the back-propagation method, addin
 Our findings suggest that the anomalies in gradients during contact interactions may be attributed to sensitivities in initial conditions, rather than the contact discontinuities.
 
 The full text of the work can be found [[file:resources/tfm.pdf][here]].
+Also I have written a small post about differentiable simulation and a web demo [[file:differential_simulation.org][here]].
 [[file:index.org][Go Back]]
