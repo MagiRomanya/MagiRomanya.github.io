@@ -15,4 +15,5 @@ Our findings suggest that the anomalies in gradients during contact interactions
 
 The full text of the work can be found [[file:resources/tfm.pdf][here]].
 Also I have written a small post about differentiable simulation and a web demo [[file:differential_simulation.org][here]].
+
 [[file:index.org][Go Back]]
