@@ -1,11 +1,16 @@
-#+title: MSLab
+#+title: Master's Thesis in MSLab: Differentiable simulation of mass-sprig simulations with contact
 
-Currently I am working under a scholarship in MSLab, with the supervision of Dr. Miguel Ángel Otaduy in Universidad Rey Juan Carlos in Madrid.
+I did my master's thesis in MSLab under the supervision of Dr. Miguel Angel Otaduy.
+The main focus on the thesis was to investigate differentiable simulation when discontinuous contact interactions are introduced.
+We used a simple simulation of mass-spring cloths as a foundation to our experiments, developed in c++ and python.
+In this work, we observed problems in the gradients when dealing with caothic systems.
+We also introduced a novel derivation of the back propagation algorithm for computing the gradients.
 
-I am doing my master's thesis about differentiable simulation, where the challenge is to find a set of physical parameters and initial conditions which make the simulation as close as possible to some reference data.
-The process to find this parameters relates closely with the training of neural networks, using back propagation and chain rule to find out which parameters need to be changed to reduce the error of the simulation.
+* Abstract:
+The discontinuous nature of contact interactions poses a challenge for gradient-based control in physical systems.
+In our study, we derived and implemented a differentiable mass-spring simulation to investigate the predicted gradients and the process of optimization with and without contact.
+Our research introduces a novel derivation of the back-propagation method, adding physical meaning to adjoint variables.
+Our findings suggest that the anomalies in gradients during contact interactions may be attributed to sensitivities in initial conditions, rather than the contact discontinuities.
 
-The project is currently being developed using C++ and python. The heavy lifting of the simulation is done by a C++ core which acts like a server, and python is used as a client which can interact with this core.
-The back propagation is implemented in python to be able to use python modules to solve the minimization problem.
-
+The full text of the work can be found [[file:resources/tfm.pdf][here]].
 [[file:index.org][Go Back]]

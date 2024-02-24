@@ -1,25 +1,24 @@
 #+title: Magí Romanyà
+#+author: Magí Romanyà Serrasolsas
 # #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
-
 * About me
-I'm a physicist graduated at Universitat de Barcelona in 2022.
-Currently I am finishing a master's degree in computer graphics at Universidad Rey Juan Carlos, Madrid.
-Also I'm in a scholarship under Dr. Miguel Ángel Otaduy, working in differentiable physics simulations in computer graphics.
+I am a computer graphics researcher pursuing my PhD under Dr. Miguel Ángel Otaduy, focusing in differentiable physics simulations.
+With a background in physics from Universitat de Barcelona and a Master's in computer graphics from URJC, I'm passionate about recreating everyday physical phenomena within virtual enviroments.
 
-* Web articles
+* Web posts
+Sometimes I take a little time to write small posts about things I have found interesting, not obvious, etc.
 - [[file:continuous_adjoint_method.org][Continuous adjoint method]]
 - [[file:visualization_of_gradient_fields.org][Visualization of gradient fields]]
 - [[file:differential_simulation.org][Differentiable simulation]]
 
-* Projects
-Here I present a list of the internships or projects I've been involved during my career.
-- [[file:mslab.org][MSLab]]: Doing master's thesis in differentiable simulation in computer graphics.
-- [[file:tfg.org][Undergraduate Thesis Project (or TFG)]]: Computing crustal deformation of the Iberian Peninsula.
+* Past Projects
+Here list the internships or projects I've been involved during my career.
+- [[file:mslab.org][Master's Thesis in MSLab]]: Differentiable simulation of mass-spring simulations with contacts.
+- [[file:tfg.org][Undergraduate Thesis Project]]: Computing crustal deformation of the Iberian Peninsula.
 - [[file:alba.org][ALBA Synchrotron]]: Designing an electron beam simulation from a thermionic RF-gun.
-- [[file:ubics.org][UBICS]]: Working with large sets of bibliometric data.
-* CV
-Please, reach out and I will gladly send my resume.
+- [[file:ubics.org][UBICS]]: Working with large sets of bibliometric data using scopus and python.
+
 * Contact information
 - [[mailto:magiromanya@gmail.com][Email: magiromanya@gmail.com]]
 - [[https://github.com/MagiRomanya][GitHub: MagiRomanya]]
