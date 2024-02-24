@@ -1,5 +1,6 @@
 #+title: Magí Romanyà
 #+author: Magí Romanyà Serrasolsas
+#+options: toc:nil
 # #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
 * About me
