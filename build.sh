@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
 emacs -Q --script build-site.el
-mkdir -p public
-cp -r content/resources/ public/
-cp content/demo.js public/
+mkdir -p public/posts/
+cp content/posts/demo.js public/posts/

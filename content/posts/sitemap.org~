@@ -1,0 +1,8 @@
+#+TITLE: Blog Entries
+
+- *[[file:continuous_adjoint_method.org][Continuous Adjoint Method]]*
+  #+html: <p class='pubdate'>Posted on 16 de nov., 2023.</p>
+- *[[file:visualization_of_gradient_fields.org][Visualization Of Gradient Fields]]*
+  #+html: <p class='pubdate'>Posted on 06 d’oct., 2023.</p>
+- *[[file:differential_simulation.org][Differential Simulation and back-propagation]]*
+  #+html: <p class='pubdate'>Posted on 06 de set., 2023.</p>

@@ -1,17 +1,16 @@
-#+title: Magí Romanyà
+#+title: About
 #+author: Magí Romanyà Serrasolsas
 #+options: toc:nil
 # #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
-* About me
 I am a computer graphics researcher pursuing my PhD under Dr. Miguel Ángel Otaduy, focusing in differentiable physics simulations.
 With a background in physics from Universitat de Barcelona and a Master's in computer graphics from URJC, I'm passionate about recreating everyday physical phenomena within virtual enviroments.
 
-* Web posts
+* Blog Posts
 Sometimes I take a little time to write small posts about things I have found interesting, not obvious, etc.
-- [[file:continuous_adjoint_method.org][Continuous adjoint method]]
-- [[file:visualization_of_gradient_fields.org][Visualization of gradient fields]]
-- [[file:differential_simulation.org][Differentiable simulation]]
+# Include the first 2 articles 2*2 + 2 + 1= 7
+ #+INCLUDE: "../posts/sitemap.org" :lines "2-7"
+#+HTML: <a href='/posts/sitemap.html'>Full Blog</a>
 
 * Past Projects
 Here list the internships or projects I've been involved during my career.

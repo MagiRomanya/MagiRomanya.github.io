@@ -1,9 +1,10 @@
 #+title: Visualization Of Gradient Fields
 #+AUTHOR: Magí Romanyà Serrasolsas
 #+EMAIL: magiromanya@gmail.com
+#+DATE: <2023-10-06 dv.>
 
 I've decided to write this article because I've encountered a number of problems while trying to visualize gradients as arrow fields in a 2 dimensional plot.
-Some of these were problems related with me not using correctly certain python libraries and others were concerned with some unexpected geometry scaling.
+Some of these were problems related with me not using ~numpy~ or ~matplotlib~ correctly, and others were concerned with some unexpected geometry scaling.
 
 * A few thing to do when using ~matplotlib~ and ~numpy~ to compute and plot gradient fields
 First let's discuss how to use correctly use ~matplotlib~ and ~numpy~ to compute and plot a two dimensional gradient field.
@@ -33,18 +34,21 @@ plt.contourf(X, Y, Z, levels=10) # Plot the color map with level curves
 plt.quiver(X, Y, grad_x, grad_y, color='honeydew', angles="xy") # Plot the gradient field
 plt.show()
 #+END_SRC
-[[./resources/gradients1.png]]
+#+CAPTION: Result of the code snippet provided above. We have correctly generated a plot which depicts our 2 dimensional function with a color-map and level curves, together with a gradient vector field.
+[[../resources/gradients1.png]]
 
 * The geometry problem
 With this, we have seemingly been able to compute the gradients and plot them correctly.
 However if we make the same plot but with a different domain $x\in [0,1]$, $y\in [0,10]$ we get the figure:
-[[./resources/gradients2.png]]
+#+LABEL: wrong-gradients
+#+CAPTION: Plot made using the same code snippet, but tweaking the domain evaluated. In this plot it is plain to see that the gradient field is *not* perpendicular to the level curves.
+[[../resources/gradients2.png]]
 
-The thing with this result, is that the gradient field is not perpendicular to the level curves, as we would expect.
+The problem with this result, is that the gradient field is not perpendicular to the level curves, as we would expect.
 This happens because now that we have changed the domain, we have a $y$ axis which has been compressed to fit 10 units in the size of 1.
 Consequently the gradients also have been squished in the $y$ axis.
 *This is not a bug but the correct representation*.
-However, we might want our gradient visualization to be perpendicular to the level curves.
+However, we might want our gradient visualization to be perpendicular to the level curves, to make the visualization of figure [[wrong-gradients]] clearer.
 This can be done by defining a scale ratio variable $s = \frac{\textrm{y scale}}{\textrm{x scale}}$.
 With this we have to apply the following transformation to the gradients:
 $$|\vec{\nabla} z| = \sqrt{{\frac{\partial z}{\partial x}}^2 + {\frac{\partial z}{\partial y}}^2}$$
@@ -69,7 +73,8 @@ plt.contourf(X, Y, Z, levels=10)
 plt.quiver(X, Y, grad_x/norm*scale*true_norm, grad_y/norm*true_norm, color='honeydew', angles="xy")
 #+END_SRC
 
-[[./resources/gradients3.png]]
+#+CAPTION: Result of the code snippet above. Here we can see that the gradient field is again perpendicular to the level curves as we would expect.
+[[../resources/gradients3.png]]
 
 The result is a gradient field that is perpendicular to the level curves.
-Note that the scaling does not only depend on the domain of the $x$ and $y$ axis, but also witht he aspect ratio of the figure.
+Note that the scaling does not only depend on the domain of the $x$ and $y$ axis, but also with he aspect ratio of the figure itself.
