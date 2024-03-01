@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+     xmlns:georss="http://www.georss.org/georss"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:media="http://search.yahoo.com/mrss/"><channel>
+  <title>Blog Entries</title>
+  <atom:link href="https://magiromanya.com/sitemap.xml" rel="self" type="application/rss+xml" />
+  <link>https://magiromanya.com/</link>
+  <description><![CDATA[]]></description>
+  <language>en</language>
+  <pubDate>Fri, 01 Mar 2024 15:53:55 +0000</pubDate>
+  <lastBuildDate>Fri, 01 Mar 2024 15:53:55 +0000</lastBuildDate>
+  <generator>Emacs 27.1 Org-mode 9.3</generator>
+  <webMaster>runner@fv-az695-62 (nil)</webMaster>
+  <image>
+    <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
+    <title>Blog Entries</title>
+    <link>https://magiromanya.com/</link>
+  </image>
+
+  <ul class="org-ul">
+    <li><p>
+      <b><a href="continuous_adjoint_method.html">Continuous Adjoint Method</a></b>
+    </p>
+    <p class='pubdate'>Posted on 16 Nov, 2023.</p></li>
+    <li><p>
+      <b><a href="visualization_of_gradient_fields.html">Visualization Of Gradient Fields</a></b>
+    </p>
+    <p class='pubdate'>Posted on 06 Oct, 2023.</p></li>
+    <li><p>
+      <b><a href="differential_simulation.html">Differential Simulation and back-propagation</a></b>
+    </p>
+    <p class='pubdate'>Posted on 06 Sep, 2023.</p></li>
+  </ul>
+</channel>
+</rss>
