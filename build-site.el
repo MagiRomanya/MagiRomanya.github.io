@@ -19,16 +19,23 @@
 (require 'org)
 (require 'ox-publish)
 
+
 ;; Customize the HTML output
 (setq org-html-validation-link nil            ;; Don't show validation link
       org-html-head-include-scripts nil       ;; Use our own scripts
       org-html-head-include-default-style nil ;; Use our own styles
+      org-html-metadata-timestamp-format "%d-%m-%Y"
+      org-html-checkbox-type 'site-html
+      org-html-self-link-headlines t
+      org-html-htmlize-output-type 'css
       org-html-head
       ;; "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
       ;; "<link rel='icon' type='image/x-icon' href='/images/favicon.ico'/>
-      "<meta name='viewport' content='width=device-width, initial-scale=1'>
+      "<link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
       <link rel='stylesheet' href='https://code.cdn.mozilla.net/fonts/fira.css'>
-      <link rel='stylesheet' href='/css/site.css' type='text/css'/>")
+      <link rel='stylesheet' href='/css/site.css' type='text/css'/>
+      <link rel='stylesheet' href='/css/syntax-coloring.css' type='text/css'/>")
 
 ;; Sitemap custom entries
 (setq this-date-format "%d %b, %Y")
@@ -66,7 +73,7 @@ PROJECT: `posts in this case."
 ;; Define the publishing project
 (setq org-publish-project-alist
       (list
-       (list "org-posts"
+       (list "magiromanya:posts"
              :recursive t
              :base-directory "./content/posts/"
              :publishing-function 'org-html-publish-to-html
@@ -87,7 +94,7 @@ PROJECT: `posts in this case."
              :recursive t
              :section-numbers nil
              :time-stamp-file nil)
-       (list "org-static"
+       (list "magiromanya:main"
              :recursive t
              :base-directory "./content/static"
              :publishing-function 'org-html-publish-to-html
@@ -104,13 +111,8 @@ PROJECT: `posts in this case."
              :publishing-directory "./public/css"
              :publishing-function 'org-publish-attachment
              :recursive t)
-       (list "resources"
-             :base-directory "./content/resources"
-             :publishing-directory "./public/resources/"
-             :publishing-function 'org-publish-attachment
-             :recursive t)
        (list "rss"
-             :base-directory "./content/posts/"
+             :base-directory "./content/posts"
              :base-extension "org"
              :html-link-home "https://magiromanya.com/"
              :rss-link-home "https://magiromanya.com/"

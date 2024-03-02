@@ -13,7 +13,7 @@
 In my master thesis, I've been working in propagating adjoints backwards, which looked like the discretization of solving an ODE in reverse.
 In this article, we are going to see that in fact, when using the back propagation algorithm, covered in this [[file:differential_simulation.org][article]], we are solving an ODE.
 Also we are going to derive how does this ODE look like.
-The work shown in this article relies heavily on the excellent standford tutorial found [[https://cs.stanford.edu/~ambrad/adjoint_tutorial.pdf][here]].
+The work shown in this article relies heavily on the excellent Standford tutorial found [[https://cs.stanford.edu/~ambrad/adjoint_tutorial.pdf][here]].
 
 * The problem setting
 :PROPERTIES:

@@ -38,6 +38,8 @@ plt.contourf(X, Y, Z, levels=10) # Plot the color map with level curves
 plt.quiver(X, Y, grad_x, grad_y, color='honeydew', angles="xy") # Plot the gradient field
 plt.show()
 #+END_SRC
+
+#+ATTR_HTML: :class center no-border
 #+CAPTION: Result of the code snippet provided above. We have correctly generated a plot which depicts our 2 dimensional function with a color-map and level curves, together with a gradient vector field.
 [[../resources/gradients1.png]]
 
@@ -48,6 +50,7 @@ plt.show()
 :END:
 With this, we have seemingly been able to compute the gradients and plot them correctly.
 However if we make the same plot but with a different domain $x\in [0,1]$, $y\in [0,10]$ we get the figure:
+#+ATTR_HTML: :class center no-border
 #+LABEL: wrong-gradients
 #+CAPTION: Plot made using the same code snippet, but tweaking the domain evaluated. In this plot it is plain to see that the gradient field is *not* perpendicular to the level curves.
 [[../resources/gradients2.png]]
@@ -81,6 +84,7 @@ plt.contourf(X, Y, Z, levels=10)
 plt.quiver(X, Y, grad_x/norm*scale*true_norm, grad_y/norm*true_norm, color='honeydew', angles="xy")
 #+END_SRC
 
+#+ATTR_HTML: :class center no-border
 #+CAPTION: Result of the code snippet above. Here we can see that the gradient field is again perpendicular to the level curves as we would expect.
 [[../resources/gradients3.png]]
 
