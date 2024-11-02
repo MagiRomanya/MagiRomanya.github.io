@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Differential Simulation and back-propagation</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Magí Romanyà Serrasolsas" />
+<link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <link rel='stylesheet' href='https://code.cdn.mozilla.net/fonts/fira.css'>
+      <link rel='stylesheet' href='/css/site.css' type='text/css'/>
+      <link rel='stylesheet' href='/css/syntax-coloring.css' type='text/css'/>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<div class='intro'>
+  <img src='../resources/profile.jpg' alt='Magí Romanyà class='no-border'/>
+  <h1>
+    <a href='/'>
+    <span class="gray">Magí</span>
+    <span class="black">Romanyà</span>
+    </a>
+  </h1>
+  <p>Graphics Researcher</p>
+</div>
+
+<div class='nav'>
+<ul>
+<li><a href='/'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1792 1792"><path fill="currentColor" d="M1523 1339q-22-155-87.5-257.5T1251 963q-67 74-159.5 115.5T896 1120t-195.5-41.5T541 963q-119 16-184.5 118.5T269 1339q106 150 271 237.5t356 87.5t356-87.5t271-237.5m-243-699q0-159-112.5-271.5T896 256T624.5 368.5T512 640t112.5 271.5T896 1024t271.5-112.5T1280 640m512 256q0 182-71 347.5t-190.5 286T1245 1721t-349 71q-182 0-348-71t-286-191t-191-286T0 896t71-348t191-286T548 71T896 0t348 71t286 191t191 286t71 348"/></svg>
+    About</a>.</li>
+<li><a href='http://github.com/magiromanya'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.03em" height="1em" viewBox="0 0 1536 1504"><path fill="currentColor" d="M768 0q209 0 385.5 103T1433 382.5T1536 768q0 251-146.5 451.5T1011 1497q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142q57-6 102.5-18t94-39t81-66.5t53-105T1258 728q0-119-79-206q37-91-8-204q-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27T450 331.5T365 318q-45 113-8 204q-79 87-79 206q0 85 20.5 150T351 983t80.5 67t94 39t102.5 18q-39 36-49 103q-21 10-45 15t-57 5t-65.5-21.5T356 1146q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5t9 14t13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30t69.5 7t55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5T0 768q0-209 103-385.5T382.5 103T768 0M291 1103q3-7-7-12q-10-3-13 2q-3 7 7 12q9 6 13-2m31 34q7-5-2-16q-10-9-16-3q-7 5 2 16q10 10 16 3m30 45q9-7 0-19q-8-13-17-6q-9 5 0 18t17 7m42 42q8-8-4-19q-12-12-20-3q-9 8 4 19q12 12 20 3m57 25q3-11-13-16q-15-4-19 7t13 15q15 6 19-6m63 5q0-13-17-11q-16 0-16 11q0 13 17 11q16 0 16-11m58-10q-2-11-18-9q-16 3-14 15t18 8t14-14"/></svg>
+    GitHub</a>.</li>
+<!-- <li><a href='https://www.reddit.com/user/'>Reddit</a>.</li> -->
+<li><a href='/rss.xml'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1536 1536"><path fill="currentColor" d="M512 1152q0-53-37.5-90.5T384 1024t-90.5 37.5T256 1152t37.5 90.5T384 1280t90.5-37.5T512 1152m351 94q-13-233-176.5-396.5T290 673q-14-1-24 9t-10 23v128q0 13 8.5 22t21.5 10q154 11 264 121t121 264q1 13 10 21.5t22 8.5h128q13 0 23-10t9-24m384 1q-5-154-56-297.5t-139.5-260t-205-205t-260-139.5T289 289q-14-1-23 9q-10 10-10 23v128q0 13 9 22t22 10q204 7 378 111.5T943.5 871t111.5 378q1 13 10 22t22 9h128q13 0 23-10q11-9 9-23m289-959v960q0 119-84.5 203.5T1248 1536H288q-119 0-203.5-84.5T0 1248V288Q0 169 84.5 84.5T288 0h960q119 0 203.5 84.5T1536 288"/></svg>
+    RSS</a>.</li>
+<li><a href='/posts/sitemap.html'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="0.88em" height="1em" viewBox="0 0 448 512"><path fill="currentColor" d="M162.4 196c4.8-4.9 6.2-5.1 36.4-5.1c27.2 0 28.1.1 32.1 2.1c5.8 2.9 8.3 7 8.3 13.6c0 5.9-2.4 10-7.6 13.4c-2.8 1.8-4.5 1.9-31.1 2.1c-16.4.1-29.5-.2-31.5-.8c-10.3-2.9-14.1-17.7-6.6-25.3m61.4 94.5c-53.9 0-55.8.2-60.2 4.1c-3.5 3.1-5.7 9.4-5.1 13.9c.7 4.7 4.8 10.1 9.2 12c2.2 1 14.1 1.7 56.3 1.2l47.9-.6l9.2-1.5c9-5.1 10.5-17.4 3.1-24.4c-5.3-4.7-5-4.7-60.4-4.7m223.4 130.1c-3.5 28.4-23 50.4-51.1 57.5c-7.2 1.8-9.7 1.9-172.9 1.8c-157.8 0-165.9-.1-172-1.8c-8.4-2.2-15.6-5.5-22.3-10c-5.6-3.8-13.9-11.8-17-16.4c-3.8-5.6-8.2-15.3-10-22C.1 423 0 420.3 0 256.3C0 93.2 0 89.7 1.8 82.6C8.1 57.9 27.7 39 53 33.4c7.3-1.6 332.1-1.9 340-.3c21.2 4.3 37.9 17.1 47.6 36.4c7.7 15.3 7-1.5 7.3 180.6c.2 115.8 0 164.5-.7 170.5m-85.4-185.2c-1.1-5-4.2-9.6-7.7-11.5c-1.1-.6-8-1.3-15.5-1.7c-12.4-.6-13.8-.8-17.8-3.1c-6.2-3.6-7.9-7.6-8-18.3c0-20.4-8.5-39.4-25.3-56.5c-12-12.2-25.3-20.5-40.6-25.1c-3.6-1.1-11.8-1.5-39.2-1.8c-42.9-.5-52.5.4-67.1 6.2c-27 10.7-46.3 33.4-53.4 62.4c-1.3 5.4-1.6 14.2-1.9 64.3c-.4 62.8 0 72.1 4 84.5c9.7 30.7 37.1 53.4 64.6 58.4c9.2 1.7 122.2 2.1 133.7.5c20.1-2.7 35.9-10.8 50.7-25.9c10.7-10.9 17.4-22.8 21.8-38.5c3.2-10.9 2.9-88.4 1.7-93.9"/></svg>
+    Blog</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Differential Simulation and back-propagation
+<br />
+<span class="subtitle">Published on 06 Sep, 2023 by Magí Romanyà Serrasolsas.</span>
+</h1>
+<p>
+This article is meant to give easy to follow instructions and requirements to make an existing simulation differentiable.
+But first let's talk about what <i>is</i> a differentiable simulation and why it can be useful.
+</p>
+
+<div id="outline-container-orgf461fc9" class="outline-2">
+<h2 id="orgf461fc9"><a href="#orgf461fc9">Why differentiable simulation</a></h2>
+<div class="outline-text-2" id="text-orgf461fc9">
+<p>
+The need of differentiable simulations arises when trying to control autonomous physical systems.
+Regular simulations are great tools to predict the trajectory of systems by applying a set of physical laws.
+But when trying to control some characteristic of the trajectory, a tedious and manual process of tweaking initial conditions and physical parameters is needed.
+On the other hand, in the framework of control of dynamical systems, the problem is tackled by defining a <b>cost function</b> which describes our target for the trajectory, and minimize it with some minimization routine.
+By definition, the cost function should have a minimum when the goal is fulfilled, and have higher values when away from the goal.
+This approach eliminates the need of manual tweaking of simulation parameters and in turn increases the accuracy of the obtained results.
+Often the minimization routines require <b>cost function gradients</b> to enhance the convergence and accuracy, and that is where differentiable simulations come in.
+A differentiable simulation is a regular simulation that is also capable of computing the said cost function gradients, and thus is easy to control.
+</p>
+
+<blockquote>
+<p>
+A differentiable simulation is a regular simulation that is also capable of computing the cost function gradients.
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-org5b350ac" class="outline-3">
+<h3 id="org5b350ac"><a href="#org5b350ac">A simple example</a></h3>
+<div class="outline-text-3" id="text-org5b350ac">
+<p>
+To illustrate the need of differentiable simulations, let's introduce a simple example.
+We have a simple simulation of a ball in free-fall, and we want to simulate a scene where the ball is thrown inside a basket.
+In this case, it is easy to define a cost function, by measuring the distance between the final position of the ball and the target.
+We do not know the proper initial velocities of the ball to make it fall where we want to, but we know that the desired velocities will minimize our cost function.
+By running a minimization procedure on the cost function, changing the initial velocities, it is possible to find a proper solution to our problem.
+Moreover, if our ball simulation is differentiable, the minimization process will converge faster and more accurately, with the help of the cost function gradients.
+In a following <a href="#org3f26cf4">section</a>, this particular example has been implemented here in this article.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc84dcd6" class="outline-2">
+<h2 id="orgc84dcd6"><a href="#orgc84dcd6">The math behind computing the gradients: back propagation</a></h2>
+<div class="outline-text-2" id="text-orgc84dcd6">
+<p>
+In this section we are going to give a high level overview of how does the computation of gradients play out in differentiable simulations.
+It is not essential to understand all of it, but it can be useful in order to adapt the math to specific situations.
+First let's talk about the simulation state, which is the quantity that defines the system in a particular time.
+In most cases the state will be a vector containing the positions and velocities of the system.
+Because of the discretization in simulation, we will have a sequence of time-ordered states \(\mathbf{s}_i = (\mathbf{x}_i, \mathbf{v}_i)\quad 0\leq i < N_s\), where \(N_s\) is the number of steps of the simulation.
+The simulation states are computed one after the other using the integration scheme of the simulator.
+In general it is possible to define that the states are a function of the previous states and also the simulation paramters \(\mathbf{s}_{i+1} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})\).
+In general, the cost function \(\phi\), will depend on all the states of the simulation, as well as the control variables: the simulation parameters.
+</p>
+\begin{equation}
+\phi = \phi(\{\mathbf{s}_i\}, \mathbf{p})
+\end{equation}
+<p>
+We are interested in taking the full derivative of the cost function with respect to the parameters vector.
+After applying chain rule and doing further manipulations, it is possible to show that the cost function gradient can be computed with the following expression:
+</p>
+\begin{equation}
+\frac{\mathrm{d}\phi}{\mathrm{d}\mathbf{p}} =
+\frac{\partial \phi}{\partial \mathbf{p}} +
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_0}\frac{\partial \mathbf{s}_0}{\partial \mathbf{p}} +
+\sum_{i=1}^{N_s}\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i}\frac{\partial \mathbf{F}(\mathbf{s}_{i-1},\mathbf{p})}{\partial \mathbf{p}}
+\end{equation}
+<p>
+The partial derivatives in the last expression are easy to compute, as they only depend on the definitions of \(\phi\) and \(\mathbf{F}\) respectively.
+However, the total derivative \(\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i}\) is not as straight forward.
+It turns out that it is possible to compute these total derivatives from other total derivatives in the following way:
+</p>
+\begin{equation}
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i} = \frac{\partial \phi}{\partial \mathbf{s}_i} +
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{i+1}}\frac{\partial \mathbf{F}(\mathbf{s}_i,\mathbf{p})}{\partial \mathbf{s}_i}
+\end{equation}
+<p>
+Thus, in order to compute all the total derivatives \(\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i}\), we have to start from the last state \(\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}}\) and propagate it backwards to the earlier states.
+The last state derivative is trivial to compute, as there is no following state dependence:
+</p>
+\begin{equation}
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}} = \frac{\partial \phi}{\partial \mathbf{s}_{N_s}}
+\end{equation}
+</div>
+<div id="outline-container-orga165f98" class="outline-3">
+<h3 id="orga165f98"><a href="#orga165f98">The \(\mathbf{F}\) function</a></h3>
+<div class="outline-text-3" id="text-orga165f98">
+<p>
+We have introduced the \(\mathbf{F}\) function, as a way of computing a state from the previous one \(\mathbf{s}_{i} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})\).
+The function \(\mathbf{F}\) is defined by the integration scheme used in the simulation, and it represents an integration step.
+Here we provide two examples of how the function and its partial derivatives look like, in the simplest explicit and implicit integration schemes.
+</p>
+<ul class="org-ul">
+<li>In the forward Euler integration scheme, the function and its partial derivative would read:</li>
+</ul>
+\begin{equation}
+\mathbf{F}(\mathbf{s}_i,\mathbf{p}) =
+\begin{pmatrix}
+\mathbf{v}_i + \Delta t M^{-1}\mathbf{f}(\mathbf{x}_i, \mathbf{v}_i, \mathbf{p})\\
+\mathbf{x}_i + \Delta t \mathbf{v}_i
+\end{pmatrix}
+\end{equation}
+\begin{equation}
+\frac{\partial \mathbf{F}}{\partial \mathbf{s}_i} =
+\begin{pmatrix}
+I + \Delta t M^{-1}\frac{\partial\mathbf{f}}{\partial \mathbf{v}_i} &
+\Delta t M^{-1}\frac{\partial\mathbf{f}}{\partial \mathbf{x}_i} \\
+I & \Delta t \\
+\end{pmatrix},
+\quad
+\frac{\partial \mathbf{F}}{\partial \mathbf{p}} =
+\begin{pmatrix}
+\Delta t M^{-1}\frac{\partial\mathbf{f}}{\partial\mathbf{p}} \\ 0
+\end{pmatrix}
+\end{equation}
+<ul class="org-ul">
+<li>In the backward Euler integration scheme, the \(\mathbf{F}\) function is defined by the implicit function theorem, and can not be written in an explicit form. Nevertheless, the implicit function theorem also allows us to take derivatives of the function, and can be written as:</li>
+</ul>
+\begin{equation}
+\frac{\partial \mathbf{F}}{\partial \mathbf{s}_i} =
+\begin{pmatrix}
+MA^{-1}_{i+1} & \Delta t A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_i \\
+\Delta t MA^{-1}_{i+1} & I + \Delta t^{2} A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_i
+\end{pmatrix},
+\quad
+\frac{\partial \mathbf{F}}{\partial \mathbf{p}} = -
+\begin{pmatrix}
+\Delta t A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{p}}\right|_{i+1} \\
+\Delta t^2 A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{p}}\right|_{i+1}
+\end{pmatrix}
+\end{equation}
+<p>
+Here, there appears the \(A_i\) matrix, which also appears when solving the backward euler equations in regular simulations. It is defined as:
+</p>
+\begin{equation}
+A_i = M - \Delta t\left.\frac{\partial\mathbf{f}}{\partial\mathbf{v}}\right|_i - \Delta t^2\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_i
+\end{equation}
+</div>
+</div>
+</div>
+<div id="outline-container-orga1bfcd9" class="outline-2">
+<h2 id="orga1bfcd9"><a href="#orga1bfcd9">Simple implementation overview</a></h2>
+<div class="outline-text-2" id="text-orga1bfcd9">
+<p>
+With the math knowledge in our belts, we can write a basic implementation of how back propagation would be implemented.
+We are going to use Python to make the code readable and easy to run anywhere.
+First we need to define the cost function and it's partial derivatives.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">phi</span>(states: List[np.array], paramters: np.array) -&gt; <span class="org-builtin">float</span>:
+    ...
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dphi_dp</span>(states: List[np.array], paramters: np.array) -&gt; np.array:
+    ...
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dphi_ds</span>(state: np.array, paramters: np.array) -&gt; np.array:
+    ...
+</pre>
+</div>
+<p>
+The cost function receives a list of states. The list must be of length \(N_s + 1\), which is the number of simulation states, and each numpy array in the list must have a length of twice the number of degrees of freedom of the simulation (position and velocities).
+The partial derivative with respect to parameters will return a numpy array with length equal to the number of paramters of the simulation.
+Similarly, the partial derivative with respect to state will have a length of twice the degrees of freedom.
+</p>
+
+<p>
+Then, we have to define the state function \(\mathbf{F}\) and it's partial derivatives.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">F</span>(state: np.array, paramters: np.array) -&gt; np.array:
+    ...
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dF_dp</span>(state: np.array, paramters: np.array) -&gt; np.array:
+    ...
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dF_ds</span>(state: np.array, paramters: np.array) -&gt; np.array:
+    ...
+</pre>
+</div>
+<p>
+Here, the state array has a length of twice the number of degrees of freedom while the parameter array has a length of number of parameters.
+The \(\mathbf{F}\) function returns an array of the same size as the state.
+Its partial derivative with respect to parameters will be a matrix of shape state \(\times\) parameters, while the partial derivative with respect to state will have a shape of state \(\times\) state.
+</p>
+
+<p>
+With the \(\phi\) and \(\mathbf{F}\) functions and partial derivatives defined, it is possible to start implementing the back-propagation algorithm to compute the cost function gradient \(\frac{\mathrm{d}\phi}{\mathrm{d}\mathbf{p}}\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">Initialize the total derivatives</span>
+<span class="org-variable-name">dphi_dp</span> = partial_dphi_dp(states)
+<span class="org-variable-name">dphi_ds</span>[Ns] = partial_dphi_ds(states[Ns])
+<span class="org-comment-delimiter"># </span><span class="org-comment">Backward loop from Ns-1 to 0</span>
+<span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(Ns-1, -1, -1):
+    <span class="org-variable-name">dphi_ds</span>[i] = partial_dphi_ds(states[i]) + dphi_ds[i+1] @ partial_dF_ds(states[i])
+    <span class="org-variable-name">dphi_dp</span> += dphi_ds[i+1] @ partial_dF_dp(states[i])
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">The initial conditions term</span>
+<span class="org-variable-name">dphi_dp</span> += dphi_ds[0] @ partial_ds0_dp()
+</pre>
+</div>
+
+<p>
+With this, the implementation of back-propagation is completed, and our simulation can now compute cost function gradients, and thus can be easily optimized.
+</p>
+</div>
+</div>
+<div id="outline-container-org3f26cf4" class="outline-2">
+<h2 id="org3f26cf4"><a href="#org3f26cf4">Online implementation</a></h2>
+<div class="outline-text-2" id="text-org3f26cf4">
+<p>
+Here there is a little example showing a differentiable simulation of a ball being thrown to a target.
+Once the ball reaches the target, a new target is created randomly.
+This is an extremely simple situation with an explicit integrator, and it is easy to implement even in a browser.
+</p>
+<canvas id="c" width="800" height="600"></canvas>
+<script  type="importmap">{
+	"imports": {
+		"three": "https://threejs.org/build/three.module.js"
+	}
+}</script>
+<script type="module" src="demo.js"></script>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 06-09-2023</p>
+<p class="author">Author: Magí Romanyà Serrasolsas</p>
+</div>
+</body>
+</html>

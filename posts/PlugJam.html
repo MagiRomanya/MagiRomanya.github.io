@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Everything is connected: A Dev diary of Pixel Jam 2024</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Magí Romanyà Serrasolsas" />
+<link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <link rel='stylesheet' href='https://code.cdn.mozilla.net/fonts/fira.css'>
+      <link rel='stylesheet' href='/css/site.css' type='text/css'/>
+      <link rel='stylesheet' href='/css/syntax-coloring.css' type='text/css'/>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<div class='intro'>
+  <img src='../resources/profile.jpg' alt='Magí Romanyà class='no-border'/>
+  <h1>
+    <a href='/'>
+    <span class="gray">Magí</span>
+    <span class="black">Romanyà</span>
+    </a>
+  </h1>
+  <p>Graphics Researcher</p>
+</div>
+
+<div class='nav'>
+<ul>
+<li><a href='/'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1792 1792"><path fill="currentColor" d="M1523 1339q-22-155-87.5-257.5T1251 963q-67 74-159.5 115.5T896 1120t-195.5-41.5T541 963q-119 16-184.5 118.5T269 1339q106 150 271 237.5t356 87.5t356-87.5t271-237.5m-243-699q0-159-112.5-271.5T896 256T624.5 368.5T512 640t112.5 271.5T896 1024t271.5-112.5T1280 640m512 256q0 182-71 347.5t-190.5 286T1245 1721t-349 71q-182 0-348-71t-286-191t-191-286T0 896t71-348t191-286T548 71T896 0t348 71t286 191t191 286t71 348"/></svg>
+    About</a>.</li>
+<li><a href='http://github.com/magiromanya'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.03em" height="1em" viewBox="0 0 1536 1504"><path fill="currentColor" d="M768 0q209 0 385.5 103T1433 382.5T1536 768q0 251-146.5 451.5T1011 1497q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142q57-6 102.5-18t94-39t81-66.5t53-105T1258 728q0-119-79-206q37-91-8-204q-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27T450 331.5T365 318q-45 113-8 204q-79 87-79 206q0 85 20.5 150T351 983t80.5 67t94 39t102.5 18q-39 36-49 103q-21 10-45 15t-57 5t-65.5-21.5T356 1146q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5t9 14t13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30t69.5 7t55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5T0 768q0-209 103-385.5T382.5 103T768 0M291 1103q3-7-7-12q-10-3-13 2q-3 7 7 12q9 6 13-2m31 34q7-5-2-16q-10-9-16-3q-7 5 2 16q10 10 16 3m30 45q9-7 0-19q-8-13-17-6q-9 5 0 18t17 7m42 42q8-8-4-19q-12-12-20-3q-9 8 4 19q12 12 20 3m57 25q3-11-13-16q-15-4-19 7t13 15q15 6 19-6m63 5q0-13-17-11q-16 0-16 11q0 13 17 11q16 0 16-11m58-10q-2-11-18-9q-16 3-14 15t18 8t14-14"/></svg>
+    GitHub</a>.</li>
+<!-- <li><a href='https://www.reddit.com/user/'>Reddit</a>.</li> -->
+<li><a href='/rss.xml'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1536 1536"><path fill="currentColor" d="M512 1152q0-53-37.5-90.5T384 1024t-90.5 37.5T256 1152t37.5 90.5T384 1280t90.5-37.5T512 1152m351 94q-13-233-176.5-396.5T290 673q-14-1-24 9t-10 23v128q0 13 8.5 22t21.5 10q154 11 264 121t121 264q1 13 10 21.5t22 8.5h128q13 0 23-10t9-24m384 1q-5-154-56-297.5t-139.5-260t-205-205t-260-139.5T289 289q-14-1-23 9q-10 10-10 23v128q0 13 9 22t22 10q204 7 378 111.5T943.5 871t111.5 378q1 13 10 22t22 9h128q13 0 23-10q11-9 9-23m289-959v960q0 119-84.5 203.5T1248 1536H288q-119 0-203.5-84.5T0 1248V288Q0 169 84.5 84.5T288 0h960q119 0 203.5 84.5T1536 288"/></svg>
+    RSS</a>.</li>
+<li><a href='/posts/sitemap.html'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="0.88em" height="1em" viewBox="0 0 448 512"><path fill="currentColor" d="M162.4 196c4.8-4.9 6.2-5.1 36.4-5.1c27.2 0 28.1.1 32.1 2.1c5.8 2.9 8.3 7 8.3 13.6c0 5.9-2.4 10-7.6 13.4c-2.8 1.8-4.5 1.9-31.1 2.1c-16.4.1-29.5-.2-31.5-.8c-10.3-2.9-14.1-17.7-6.6-25.3m61.4 94.5c-53.9 0-55.8.2-60.2 4.1c-3.5 3.1-5.7 9.4-5.1 13.9c.7 4.7 4.8 10.1 9.2 12c2.2 1 14.1 1.7 56.3 1.2l47.9-.6l9.2-1.5c9-5.1 10.5-17.4 3.1-24.4c-5.3-4.7-5-4.7-60.4-4.7m223.4 130.1c-3.5 28.4-23 50.4-51.1 57.5c-7.2 1.8-9.7 1.9-172.9 1.8c-157.8 0-165.9-.1-172-1.8c-8.4-2.2-15.6-5.5-22.3-10c-5.6-3.8-13.9-11.8-17-16.4c-3.8-5.6-8.2-15.3-10-22C.1 423 0 420.3 0 256.3C0 93.2 0 89.7 1.8 82.6C8.1 57.9 27.7 39 53 33.4c7.3-1.6 332.1-1.9 340-.3c21.2 4.3 37.9 17.1 47.6 36.4c7.7 15.3 7-1.5 7.3 180.6c.2 115.8 0 164.5-.7 170.5m-85.4-185.2c-1.1-5-4.2-9.6-7.7-11.5c-1.1-.6-8-1.3-15.5-1.7c-12.4-.6-13.8-.8-17.8-3.1c-6.2-3.6-7.9-7.6-8-18.3c0-20.4-8.5-39.4-25.3-56.5c-12-12.2-25.3-20.5-40.6-25.1c-3.6-1.1-11.8-1.5-39.2-1.8c-42.9-.5-52.5.4-67.1 6.2c-27 10.7-46.3 33.4-53.4 62.4c-1.3 5.4-1.6 14.2-1.9 64.3c-.4 62.8 0 72.1 4 84.5c9.7 30.7 37.1 53.4 64.6 58.4c9.2 1.7 122.2 2.1 133.7.5c20.1-2.7 35.9-10.8 50.7-25.9c10.7-10.9 17.4-22.8 21.8-38.5c3.2-10.9 2.9-88.4 1.7-93.9"/></svg>
+    Blog</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Everything is connected: A Dev diary of Pixel Jam 2024
+<br />
+<span class="subtitle">Published on 03 Mar, 2024 by Magí Romanyà Serrasolsas.</span>
+</h1>
+<style>
+    .figure-number {
+        display: none;
+    }
+</style>
+
+<div id="outline-container-orgc6574af" class="outline-2">
+<h2 id="orgc6574af"><a href="#orgc6574af">Pixel Jam 2024</a></h2>
+<div class="outline-text-2" id="text-orgc6574af">
+<p>
+With some friends we decided to start 2024 by forcing ourselves to spend the last week of our holidays building a game from scratch.
+We wanted to have a deadline that would force us to work on the project, and encourage us to finish our project in a limited time.
+So we took part in Pixel Jam 24.
+This was a small one-week Jam hosted on <a href="https://itch.io">itch.io</a>, and it had a compatible schedule, which was all that mattered.
+All the games in the Jam had to have pixel art, but this was not a constraint for us, as we wanted to use pixel art for the game anyway.
+</p>
+
+<div class="figure">
+<p><img src="../resources/plug-jam-title.png" alt="plug-jam-title.png" class="center no-border" />
+</p>
+</div>
+
+<p>
+We ended up with a team of 4-5 friends working on the game.
+Fortunately, not all the team members came from technical backgrounds, so they could focus on making the art and worry about making the game fun to play.
+Meanwhile, in the more technically inclined part of the team, we decided not to use a game engine to make the game and have a bit of fun.
+We ended up writing the game in C, and using the fantastic <a href="https://raylib.com">raylib</a> library, which freed us from the tedious parts of graphics programming and came with some really handy functionality already implemented.
+</p>
+
+<div class="figure">
+<p><img src="../resources/Nintendo_Switch.gif" alt="Nintendo_Switch.gif" class="center no-border pixelated" width="20%" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org585db05" class="outline-2">
+<h2 id="org585db05"><a href="#org585db05">The development of the game</a></h2>
+<div class="outline-text-2" id="text-org585db05">
+<p>
+The theme of the Jam was revealed to be <b>everything is connected</b>.
+After some brainstorming we decided to make a puzzle game about a character who has to connect various devices to power with a limited length of cable.
+We also decided to make the game a platformer, as the puzzle idea felt too simple.
+</p>
+
+<p>
+I included a short devlog here, which is oversimplified and mostly wrong.
+You could say that it is <i>inspired</i> by the real thing.
+</p>
+
+<div class="figure">
+<p><img src="../resources/washing-machine-on.gif" alt="washing-machine-on.gif" class="center no-border pixelated" width="20%" />
+</p>
+</div>
+</div>
+<div id="outline-container-org13085f0" class="outline-3">
+<h3 id="org13085f0"><a href="#org13085f0">Day one: Implementing cable physics</a></h3>
+<div class="outline-text-3" id="text-org13085f0">
+<p>
+Initially we thought of the cable as a physical entity that could be bend and collide with the environment.
+The challenge in the game would be keep the cable from becoming too tangled in the level so that all the appliances could be connected to the power outlet.
+As the main mechanic of the game, we started the game by researching how to model and implement this cable.
+However, after a day's work, we had nothing resembling a real cable, and we realised that this alone could eat up all the development time we had available.
+To solve this, we had to go back to do some brainstorming and come up with new ideas.
+</p>
+</div>
+</div>
+<div id="outline-container-org347efcf" class="outline-3">
+<h3 id="org347efcf"><a href="#org347efcf">Day two: Solving the physics with staples</a></h3>
+<div class="outline-text-3" id="text-org347efcf">
+<p>
+We liked the idea of connecting appliances with an electric cable and we did not want to give up on this idea yet.
+So to solve the cable physics problem, we removed the physics from the equation.
+The cable will always follow a straight line from its origin to the player's hand.
+To avoid obstacles, the player had to staple the cable to the wall.
+This in itself was an interesting mechanic, the staples could be a limited resource, which in addition to limiting the length of the cable, could lead to interesting level design.
+</p>
+
+<div class="figure">
+<p><img src="../resources/pixel-jam-screenshot0.png" alt="pixel-jam-screenshot0.png" class="center no-border" width="100%" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Screenshot of the game showing the cable being stapled to the wall to avoid the obstacle and connect the washing machine to the power outlet.</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd0519d8" class="outline-3">
+<h3 id="orgd0519d8"><a href="#orgd0519d8">Day three: Reading the levels from an image file</a></h3>
+<div class="outline-text-3" id="text-orgd0519d8">
+<p>
+With the core mechanic implemented, we needed to work on a way to easily create and iterate game levels.
+Since we decided to write the game in C and not use a game engine, we did not have a level editor at our disposal.
+Building an editor from scratch with the limited time we had was not a viable option and would have been overkill for our needs.
+We decided to go for simplicity and create levels in an image file and make a <i>level loader</i> that could generate all the tiles, colliders, appliances and player starting position from the file.
+This is not an original idea by any means but it ended up being very helpful.
+All the members of our team could just draw the level that they wanted and just test it in the game, without ever having to know how to code.
+We also realized that our levels were <b>hot reloadable</b>, which allowed us to iterate on different levels without ever having to recompile the game.
+The <i>level loader</i> was definitely the most useful part of our game and it is the part that we are most proud of.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc77fd9e" class="outline-3">
+<h3 id="orgc77fd9e"><a href="#orgc77fd9e">Day four: Making the levels (and hats)</a></h3>
+<div class="outline-text-3" id="text-orgc77fd9e">
+<p>
+With the <i>level loader</i> and the cable mechanic implemented, we only needed to make a few levels to have a playable game.
+This was an interesting part of the development process, and also maybe the most difficult.
+Making good levels is hard, and we did not have as much time to implement new mechanics as we wanted in order to make the levels we wanted.
+Tuning the difficulty curve was also a challenge, as we as level designers felt that all the solutions were obvious.
+In the end we made a total of 8 levels, which we think is a good amount for a Jam project.
+The levels are by no means masterpieces, but in the end the game was quite interesting to play.
+</p>
+
+<p>
+Making levels was not out greatest strength it this project.
+To make up for it, we introduced a game changing mechanic which we estimate it improved the game's quality by orders of magnitude: player hats.
+By pressing a key, the player could cycle between different hats for the main character, and in every level, the starting hat was different.
+</p>
+
+
+<div class="figure">
+<p><img src="../resources/plug-jam-hats.png" alt="plug-jam-hats.png" class="center no-border pixelated" width="40%" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5d9b88a" class="outline-2">
+<h2 id="org5d9b88a"><a href="#org5d9b88a">The completed game</a></h2>
+<div class="outline-text-2" id="text-org5d9b88a">
+<p>
+The final game is published in <a href="https://itch.io">itch.io</a> and it is free for anyone to download.
+</p>
+<iframe frameborder="0" src="https://itch.io/embed/2459553" width="552" height="167"><a href="https://magiromanya.itch.io/plug-jam">Plug JAM by magiromanya, Subokubo, kojithecat, Sniffinglitter</a></iframe>
+<p>
+The code is publically available in <a href="https://github.com/MagiRomanya/PixelJAM24">github</a>, and it compiles for Windows and for Linux platforms.
+We have not tested making a build for MacOS, but it should theoretically work, as raylib is a cross patform library.
+Because of time constraints, we only ended up publishing a Windows build in <a href="https://itch.io">itch.io</a>.
+</p>
+
+<div class="figure">
+<p><img src="../resources/player-run.gif" alt="player-run.gif" class="center no-border pixelated" width="20%" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 03-03-2024</p>
+<p class="author">Author: Magí Romanyà Serrasolsas</p>
+</div>
+</body>
+</html>
