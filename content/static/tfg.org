@@ -1,0 +1,11 @@
+#+title: Computing crustal deformation of the Iberian Peninsula
+
+Here is the abstract as well as a full text of my physics college degree's final thesis, which I completed in July 2022.
+
+*Abstract:*
+
+Crustal deformation studies are useful to comprehend on-going geological processes and enhance seismic hazard assessment studies. These studies require large GPS data sets, covering a wide temporal and spatial range, besides further complex computation and analysis. We present a three-dimensional crustal deformation velocity map of the Iberian Peninsula with improved spatial resolution. The results show a regional clockwise rotation of the peninsula, as well as a northward velocity trend in the eastern Betics. An explanation could involve a rigidly rotating lithospheric block along with a viscous coupling between Nubia and Eurasia plates. The results are coherent with earlier studies and will serve as a basis for future research
+
+You can find the completed thesis [[https://diposit.ub.edu/dspace/handle/2445/188915][here]].
+
+[[file:index.org][Go Back]]

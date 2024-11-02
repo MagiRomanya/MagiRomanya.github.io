@@ -1,0 +1,19 @@
+#+title: Master's Thesis in MSLab: Differentiable simulation of mass-sprig simulations with contact
+#+author: Magí Romanyà Serrasolsas
+
+I finished my master's thesis in MSLab in October 2023, under the supervision of Dr. Miguel Angel Otaduy.
+The main focus on the thesis was to investigate differentiable simulation when discontinuous contact interactions are introduced.
+We used a simple simulation of mass-spring cloths as a foundation to our experiments, developed in c++ and python.
+In this work, we observed problems in the gradients when dealing with caothic systems.
+We also introduced a novel derivation of the back propagation algorithm for computing the gradients.
+
+* Abstract:
+The discontinuous nature of contact interactions poses a challenge for gradient-based control in physical systems.
+In our study, we derived and implemented a differentiable mass-spring simulation to investigate the predicted gradients and the process of optimization with and without contact.
+Our research introduces a novel derivation of the back-propagation method, adding physical meaning to adjoint variables.
+Our findings suggest that the anomalies in gradients during contact interactions may be attributed to sensitivities in initial conditions, rather than the contact discontinuities.
+
+The full text of the work can be found [[file:~/Documents/MagiRomanya.github.io/content/resources/tfm.pdf][here]].
+Also I have written a small post about differentiable simulation and a web demo [[file:~/Documents/MagiRomanya.github.io/content/posts/differential_simulation.org][here]].
+
+[[file:index.org][Go Back]]

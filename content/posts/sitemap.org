@@ -1,0 +1,10 @@
+#+TITLE: Blog Entries
+
+- *[[file:PlugJam.org][Everything is connected: A Dev diary of Pixel Jam 2024]]*
+  #+html: <p class='pubdate'>Posted on 03 Mar, 2024.</p>
+- *[[file:continuous_adjoint_method.org][Continuous Adjoint Method]]*
+  #+html: <p class='pubdate'>Posted on 16 Nov, 2023.</p>
+- *[[file:visualization_of_gradient_fields.org][Visualization Of Gradient Fields]]*
+  #+html: <p class='pubdate'>Posted on 06 Oct, 2023.</p>
+- *[[file:differential_simulation.org][Differential Simulation and back-propagation]]*
+  #+html: <p class='pubdate'>Posted on 06 Sep, 2023.</p>

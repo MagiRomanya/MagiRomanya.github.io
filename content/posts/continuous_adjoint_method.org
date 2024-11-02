@@ -1,0 +1,176 @@
+#+title: Continuous Adjoint Method
+#+author: Magí Romanyà Serrasolsas
+#+date: <2023-11-16 dj.>
+#+LaTeX_HEADER:\newcommand{\totald}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+#+LaTeX_HEADER:\newcommand{\partiald}[2]{\frac{\partial#1}{\partial#2}}
+#+LaTeX_HEADER:\usepackage{amsmath}
+
+* Introduction
+:PROPERTIES:
+:ID:       b42d0333-ccec-4d5b-b388-0913f37982d0
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+In my master thesis, I've been working in propagating adjoints backwards, which looked like the discretization of solving an ODE in reverse.
+In this article, we are going to see that in fact, when using the back propagation algorithm, covered in this [[file:differential_simulation.org][article]], we are solving an ODE.
+Also we are going to derive how does this ODE look like.
+The work shown in this article relies heavily on the excellent Standford tutorial found [[https://cs.stanford.edu/~ambrad/adjoint_tutorial.pdf][here]].
+
+* The problem setting
+:PROPERTIES:
+:ID:       d03003ef-ac31-46ff-a0e7-41104eb46456
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+First we are going to write down our notation and describe the problem we want to solve.
+Analytically, solving a forward simulation, is equivalent as integrating a certain differential equation.
+\begin{equation}
+\label{eq:ode}
+\newcommand{\totald}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\partiald}[2]{\frac{\partial#1}{\partial#2}}
+\totald{\mathbf{s}}{t} = \mathbf{\hat{f}}(\mathbf{s}, \mathbf{p}, t)
+,\quad \mathbf{s}(0)=\mathbf{s}_0
+\end{equation}
+
+To formulate our back propagation of adjoint states also as an ODE, we are going to need a description of the objective function.
+The objective function in the continuous case is no longer a function but a functional.
+It does not take variables as an input but whole functions, in this case is going to depend on the function $\mathbf{s}(\mathbf{p},t)$.
+
+\begin{equation}
+\Phi(\mathbf{s}, \mathbf{p}) = \int_{0}^{T}\phi(\mathbf{s}, \mathbf{p}, t)\mathrm{d}t
+\end{equation}
+
+We can think of this integral as evaluating our function $\mathbf{s}(t)$ at each point in time between 0 and $T$, and feeding this result to an "instantaneous objective function" $\phi$, and then summing all the results.
+
+With all this formulation, we can finally write our minimization problem with constraints as:
+\begin{equation}
+\label{eq:minimization}
+\arg \min_{\mathbf{p}} \Phi(\mathbf{s}, \mathbf{p}), \quad \text{subject to}
+\begin{cases}
+\mathbf{f}(\mathbf{s}, \totald{\mathbf{s}}{t}, \mathbf{p}, t) = 0 \\
+\mathbf{g}(\mathbf{s}(0), \mathbf{s}_0) = 0
+\end{cases}
+\end{equation}
+Where the $\mathbf{f}$ and $\mathbf{g}$ functions are the ODE and the initial conditions described in equation \eqref{eq:ode}, written in implicit form, $\mathbf{f} \equiv \frac{\mathrm{d}\mathbf{s}}{\mathrm{d}t} - \mathbf{\hat{f}}$, $\mathbf{g} \equiv \mathbf{s}(0) - \mathbf{s}_0$.
+
+* Solving the minimization problem
+:PROPERTIES:
+:ID:       7e310950-c258-46e5-a4c9-0a5b0425637e
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+Now that we have the formulation of the problem, we can start solving it.
+The problem is formally known as a minimization with constraints and can be approached using lagrange multipliers.
+The first step towards solving the problem is to introduce the Lagrangian, with no constraints, which in this case is nothing more than our objective function:
+\begin{equation}
+\mathcal{L} = \Phi = \int_{0}^{T}\phi(\mathbf{s}, \mathbf{p}, t)\mathrm{d}t
+\end{equation}
+
+Now we want to introduce the constraints to this equation using Lagrange multipliers that we will define as the $\lambda$ and $\mu$ vectors.
+
+\begin{equation}
+\mathcal{L} = \int_{0}^{T}\left[\phi(\mathbf{s}, \mathbf{p}, t) + \lambda^T\mathbf{f}(\mathbf{s}, \totald{\mathbf{s}}{t}, \mathbf{p}, t) \right]\mathrm{d}t +
+ \mu^T\mathbf{g}(\mathbf{s}(0), \mathbf{s}_0)
+\end{equation}
+Note that this holds because we have defined the $\mathbf{f}$ and $\mathbf{g}$ functions to be equal to zero in the formulation of the problem shown in \eqref{eq:minimization}.
+Also this holds for any $\lambda$ and $\mu$, which means that we have the freedom to choose this Lagrange multipliers.
+
+From here we will take the derivative of this Lagrangian with respect to the simulation parameters $p$.
+\begin{equation}
+\label{eq:lagrangian-derivative}
+\begin{split}
+\totald{\mathcal{L}}{\mathbf{p}} = \int_{0}^{T}\left[
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{p}} +
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{s}}\totald{\mathbf{s}}{\mathbf{p}} +
+\lambda^T\left(
+\partiald{\mathbf{f}}{\mathbf{p}} +
+\partiald{\mathbf{f}}{\mathbf{s}}\totald{\mathbf{s}}{\mathbf{p}} +
+\partiald{\mathbf{f}}{\mathbf{\dot{s}}}\totald{\mathbf{\dot{s}}}{\mathbf{p}}
+\right)\right]\mathrm{d}t \\ +
+\mu^T\left(
+\partiald{\mathbf{g}}{\mathbf{p}} +
+\partiald{\mathbf{g}}{\mathbf{s}(0)}\totald{\mathbf{s}(0)}{\mathbf{p}}
+\right)
+\end{split}
+\end{equation}
+
+In this step we have applied the chain rule to all the functions present. Also we introduced the notation $\mathbf{\dot{s}}\equiv\totald{\mathbf{s}}{t}$ to make the equation cleaner.
+Now it is possible to write the term containing $\totald{\mathbf{\dot{s}}}{\mathbf{p}}$ in terms of the derivative $\totald{\mathbf{s}}{\mathbf{p}}$ by integrating by parts:
+\begin{equation}
+\int_0^T\lambda^T
+\partiald{\mathbf{f}}{\mathbf{\dot{s}}}\totald{\mathbf{\dot{s}}}{\mathbf{p}}
+\mathrm{d}t =
+\left.\lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}\totald{\mathbf{s}}{\mathbf{t}}\right|_0^T
+-\int_0^T\left(
+\totald{\lambda^T}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}} +
+\lambda^T\totald{}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)\totald{\mathbf{s}}{\mathbf{p}}
+\mathrm{d}t
+\end{equation}
+
+Substituting this result into the Lagrangian derivative expression in \eqref{eq:lagrangian-derivative}, and grouping all the terms with the derivative $\totald{\mathbf{s}}{\mathbf{p}}$, we can write:
+\begin{equation}
+\label{eq:lagrangian-derivative2}
+\begin{split}
+\totald{\mathcal{L}}{\mathbf{p}} = \int_{0}^{T}\left[
+\left(
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{s}} +
+\lambda^T\left(
+\partiald{\mathbf{f}}{\mathbf{s}} -
+\totald{}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)-
+\totald{\lambda^T}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)
+\totald{\mathbf{s}}{\mathbf{p}} +
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{p}} +
+\lambda^T\partiald{\mathbf{f}}{\mathbf{p}}
+\right]\mathrm{d}t +\\
+\left.\lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}\totald{\mathbf{s}}{\mathbf{t}}\right|_T +
+\left.\left(
+\mu^T\partiald{\mathbf{g}}{\mathbf{s}(0)}
+- \lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)\right|_0
+\totald{\mathbf{s}(0)}{\mathbf{p}} +
+\mu^T
+\partiald{\mathbf{g}}{\mathbf{p}}
+\end{split}
+\end{equation}
+
+This is one ugly expression, and a lot is going on.
+Fortunately, we have still some freedom to deal with, as we have yet to fix our Lagrange multipliers $\lambda$ and $\mu$.
+It is our main interest to avoid computing the sensitivity matrix $\totald{\mathbf{s}}{\mathbf{p}}$, so we will choose our multipliers to cancel the terms where they appear.
+\begin{align}
+\left.\lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}\totald{\mathbf{s}}{\mathbf{t}}\right|_T &= 0 \\
+\left.\left(
+\mu^T\partiald{\mathbf{g}}{\mathbf{s}(0)}
+- \lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)\right|_0 &= 0 \\
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{s}} +
+\lambda^T\left(
+\partiald{\mathbf{f}}{\mathbf{s}} -
+\totald{}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)-
+\totald{\lambda^T}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+&= 0
+\end{align}
+
+From the first equation, we can take $\lambda(T) = 0$, which is a initial conditions equation. And from the second equation we can take $\mu^T = \lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}{\left(\partiald{\mathbf{g}}{\mathbf{s}(0)}\right)}^{-1}$.
+Finally, from the last equation, we can write the following ODE that the $\lambda$ multiplier has to fulfill.
+\begin{equation}
+\totald{\lambda^T}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+=
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{s}} +
+\lambda^T\left(
+\partiald{\mathbf{f}}{\mathbf{s}} -
+\totald{}{t}\partiald{\mathbf{f}}{\mathbf{\dot{s}}}
+\right)
+\end{equation}
+
+With these defined multipliers our Lagrangian gradient can be written in a nicer expression:
+\begin{equation}
+\totald{\mathcal{L}}{\mathbf{p}} = \int_{0}^{T}\left[
+\partiald{\phi(\mathbf{s}, \mathbf{p}, t)}{\mathbf{p}} +
+\lambda^T\partiald{\mathbf{f}}{\mathbf{p}}
+\right]\mathrm{d}t +
+\lambda^T\partiald{\mathbf{f}}{\mathbf{\dot{s}}}{\left(\partiald{\mathbf{g}}{\mathbf{s}(0)}\right)}^{-1}
+\partiald{\mathbf{g}}{\mathbf{p}}
+\end{equation}
+
+#  LocalWords:  Adjoint adjoints adjoint

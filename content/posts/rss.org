@@ -1,0 +1,26 @@
+#+TITLE: Magí Article Feed
+
+* Everything is connected: A Dev diary of Pixel Jam 2024
+:PROPERTIES:
+:RSS_PERMALINK: posts/PlugJam.html
+:PUBDATE:  2024-03-03
+:ID:       5652f72a-02d4-4375-82b3-e95006bfd5b8
+:END:
+* Continuous Adjoint Method
+:PROPERTIES:
+:RSS_PERMALINK: posts/continuous_adjoint_method.html
+:PUBDATE:  2023-11-16
+:ID:       a2c3a3b7-c883-4335-b08d-090f0f61d90b
+:END:
+* Visualization Of Gradient Fields
+:PROPERTIES:
+:RSS_PERMALINK: posts/visualization_of_gradient_fields.html
+:PUBDATE:  2023-10-06
+:ID:       857d1abe-3f06-4320-85d2-798122a031e2
+:END:
+* Differential Simulation and back-propagation
+:PROPERTIES:
+:RSS_PERMALINK: posts/differential_simulation.html
+:PUBDATE:  2023-09-06
+:ID:       8080b92a-2ef4-4337-892a-2fa74193848d
+:END:

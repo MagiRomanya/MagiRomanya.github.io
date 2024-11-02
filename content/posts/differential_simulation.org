@@ -1,0 +1,187 @@
+#+TITLE: Differential Simulation and back-propagation
+# #+SUBTITLE: A practical implementation guide
+#+AUTHOR: Magí Romanyà Serrasolsas
+#+DATE: <2023-09-06 dc.>
+
+This article is meant to give easy to follow instructions and requirements to make an existing simulation differentiable.
+But first let's talk about what /is/ a differentiable simulation and why it can be useful.
+
+* Why differentiable simulation
+:PROPERTIES:
+:ID:       8ae35e53-0845-400a-b3ad-b286bbc347ac
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+The need of differentiable simulations arises when trying to control autonomous physical systems.
+Regular simulations are great tools to predict the trajectory of systems by applying a set of physical laws.
+But when trying to control some characteristic of the trajectory, a tedious and manual process of tweaking initial conditions and physical parameters is needed.
+On the other hand, in the framework of control of dynamical systems, the problem is tackled by defining a *cost function* which describes our target for the trajectory, and minimize it with some minimization routine.
+By definition, the cost function should have a minimum when the goal is fulfilled, and have higher values when away from the goal.
+This approach eliminates the need of manual tweaking of simulation parameters and in turn increases the accuracy of the obtained results.
+Often the minimization routines require *cost function gradients* to enhance the convergence and accuracy, and that is where differentiable simulations come in.
+A differentiable simulation is a regular simulation that is also capable of computing the said cost function gradients, and thus is easy to control.
+
+#+BEGIN_QUOTE
+A differentiable simulation is a regular simulation that is also capable of computing the cost function gradients.
+#+END_QUOTE
+
+** A simple example
+:PROPERTIES:
+:ID:       b74497a5-3c9b-479b-94cb-0fcb819a8672
+:END:
+To illustrate the need of differentiable simulations, let's introduce a simple example.
+We have a simple simulation of a ball in free-fall, and we want to simulate a scene where the ball is thrown inside a basket.
+In this case, it is easy to define a cost function, by measuring the distance between the final position of the ball and the target.
+We do not know the proper initial velocities of the ball to make it fall where we want to, but we know that the desired velocities will minimize our cost function.
+By running a minimization procedure on the cost function, changing the initial velocities, it is possible to find a proper solution to our problem.
+Moreover, if our ball simulation is differentiable, the minimization process will converge faster and more accurately, with the help of the cost function gradients.
+In a following [[Online implementation][section]], this particular example has been implemented here in this article.
+
+* The math behind computing the gradients: back propagation
+:PROPERTIES:
+:ID:       16214044-8d6b-4391-9293-fc75259769df
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+In this section we are going to give a high level overview of how does the computation of gradients play out in differentiable simulations.
+It is not essential to understand all of it, but it can be useful in order to adapt the math to specific situations.
+First let's talk about the simulation state, which is the quantity that defines the system in a particular time.
+In most cases the state will be a vector containing the positions and velocities of the system.
+Because of the discretization in simulation, we will have a sequence of time-ordered states $\mathbf{s}_i = (\mathbf{x}_i, \mathbf{v}_i)\quad 0\leq i < N_s$, where $N_s$ is the number of steps of the simulation.
+The simulation states are computed one after the other using the integration scheme of the simulator.
+In general it is possible to define that the states are a function of the previous states and also the simulation paramters $\mathbf{s}_{i+1} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})$.
+In general, the cost function $\phi$, will depend on all the states of the simulation, as well as the control variables: the simulation parameters.
+\begin{equation}
+\phi = \phi(\{\mathbf{s}_i\}, \mathbf{p})
+\end{equation}
+We are interested in taking the full derivative of the cost function with respect to the parameters vector.
+After applying chain rule and doing further manipulations, it is possible to show that the cost function gradient can be computed with the following expression:
+\begin{equation}
+\frac{\mathrm{d}\phi}{\mathrm{d}\mathbf{p}} =
+\frac{\partial \phi}{\partial \mathbf{p}} +
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_0}\frac{\partial \mathbf{s}_0}{\partial \mathbf{p}} +
+\sum_{i=1}^{N_s}\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i}\frac{\partial \mathbf{F}(\mathbf{s}_{i-1},\mathbf{p})}{\partial \mathbf{p}}
+\end{equation}
+The partial derivatives in the last expression are easy to compute, as they only depend on the definitions of $\phi$ and $\mathbf{F}$ respectively.
+However, the total derivative $\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i}$ is not as straight forward.
+It turns out that it is possible to compute these total derivatives from other total derivatives in the following way:
+\begin{equation}
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i} = \frac{\partial \phi}{\partial \mathbf{s}_i} +
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{i+1}}\frac{\partial \mathbf{F}(\mathbf{s}_i,\mathbf{p})}{\partial \mathbf{s}_i}
+\end{equation}
+Thus, in order to compute all the total derivatives $\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_i}$, we have to start from the last state $\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}}$ and propagate it backwards to the earlier states.
+The last state derivative is trivial to compute, as there is no following state dependence:
+\begin{equation}
+\frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}} = \frac{\partial \phi}{\partial \mathbf{s}_{N_s}}
+\end{equation}
+** The $\mathbf{F}$ function
+:PROPERTIES:
+:ID:       8ca3a4ae-0e7e-4461-84b0-025cc65755f9
+:END:
+We have introduced the $\mathbf{F}$ function, as a way of computing a state from the previous one $\mathbf{s}_{i} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})$.
+The function $\mathbf{F}$ is defined by the integration scheme used in the simulation, and it represents an integration step.
+Here we provide two examples of how the function and its partial derivatives look like, in the simplest explicit and implicit integration schemes.
+- In the forward Euler integration scheme, the function and its partial derivative would read:
+\begin{equation}
+\mathbf{F}(\mathbf{s}_i,\mathbf{p}) =
+\begin{pmatrix}
+\mathbf{v}_i + \Delta t M^{-1}\mathbf{f}(\mathbf{x}_i, \mathbf{v}_i, \mathbf{p})\\
+\mathbf{x}_i + \Delta t \mathbf{v}_i
+\end{pmatrix}
+\end{equation}
+\begin{equation}
+\frac{\partial \mathbf{F}}{\partial \mathbf{s}_i} =
+\begin{pmatrix}
+I + \Delta t M^{-1}\frac{\partial\mathbf{f}}{\partial \mathbf{v}_i} &
+\Delta t M^{-1}\frac{\partial\mathbf{f}}{\partial \mathbf{x}_i} \\
+I & \Delta t \\
+\end{pmatrix},
+\quad
+\frac{\partial \mathbf{F}}{\partial \mathbf{p}} =
+\begin{pmatrix}
+\Delta t M^{-1}\frac{\partial\mathbf{f}}{\partial\mathbf{p}} \\ 0
+\end{pmatrix}
+\end{equation}
+- In the backward Euler integration scheme, the $\mathbf{F}$ function is defined by the implicit function theorem, and can not be written in an explicit form. Nevertheless, the implicit function theorem also allows us to take derivatives of the function, and can be written as:
+\begin{equation}
+\frac{\partial \mathbf{F}}{\partial \mathbf{s}_i} =
+\begin{pmatrix}
+MA^{-1}_{i+1} & \Delta t A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_i \\
+\Delta t MA^{-1}_{i+1} & I + \Delta t^{2} A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_i
+\end{pmatrix},
+\quad
+\frac{\partial \mathbf{F}}{\partial \mathbf{p}} = -
+\begin{pmatrix}
+\Delta t A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{p}}\right|_{i+1} \\
+\Delta t^2 A^{-1}_{i+1}\left.\frac{\partial\mathbf{f}}{\partial\mathbf{p}}\right|_{i+1}
+\end{pmatrix}
+\end{equation}
+Here, there appears the $A_i$ matrix, which also appears when solving the backward euler equations in regular simulations. It is defined as:
+\begin{equation}
+A_i = M - \Delta t\left.\frac{\partial\mathbf{f}}{\partial\mathbf{v}}\right|_i - \Delta t^2\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_i
+\end{equation}
+* Simple implementation overview
+:PROPERTIES:
+:ID:       6c30e4e5-b445-456e-8458-b4342376031e
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+With the math knowledge in our belts, we can write a basic implementation of how back propagation would be implemented.
+We are going to use Python to make the code readable and easy to run anywhere.
+First we need to define the cost function and it's partial derivatives.
+#+BEGIN_SRC python
+def phi(states: List[np.array], paramters: np.array) -> float:
+    ...
+def partial_dphi_dp(states: List[np.array], paramters: np.array) -> np.array:
+    ...
+def partial_dphi_ds(state: np.array, paramters: np.array) -> np.array:
+    ...
+#+END_SRC
+The cost function receives a list of states. The list must be of length $N_s + 1$, which is the number of simulation states, and each numpy array in the list must have a length of twice the number of degrees of freedom of the simulation (position and velocities).
+The partial derivative with respect to parameters will return a numpy array with length equal to the number of paramters of the simulation.
+Similarly, the partial derivative with respect to state will have a length of twice the degrees of freedom.
+
+Then, we have to define the state function $\mathbf{F}$ and it's partial derivatives.
+#+BEGIN_SRC python
+def F(state: np.array, paramters: np.array) -> np.array:
+    ...
+def partial_dF_dp(state: np.array, paramters: np.array) -> np.array:
+    ...
+def partial_dF_ds(state: np.array, paramters: np.array) -> np.array:
+    ...
+#+END_SRC
+Here, the state array has a length of twice the number of degrees of freedom while the parameter array has a length of number of parameters.
+The $\mathbf{F}$ function returns an array of the same size as the state.
+Its partial derivative with respect to parameters will be a matrix of shape state $\times$ parameters, while the partial derivative with respect to state will have a shape of state $\times$ state.
+
+With the $\phi$ and $\mathbf{F}$ functions and partial derivatives defined, it is possible to start implementing the back-propagation algorithm to compute the cost function gradient $\frac{\mathrm{d}\phi}{\mathrm{d}\mathbf{p}}$.
+
+#+BEGIN_SRC python
+# Initialize the total derivatives
+dphi_dp = partial_dphi_dp(states)
+dphi_ds[Ns] = partial_dphi_ds(states[Ns])
+# Backward loop from Ns-1 to 0
+for i in range(Ns-1, -1, -1):
+    dphi_ds[i] = partial_dphi_ds(states[i]) + dphi_ds[i+1] @ partial_dF_ds(states[i])
+    dphi_dp += dphi_ds[i+1] @ partial_dF_dp(states[i])
+
+# The initial conditions term
+dphi_dp += dphi_ds[0] @ partial_ds0_dp()
+#+END_SRC
+
+With this, the implementation of back-propagation is completed, and our simulation can now compute cost function gradients, and thus can be easily optimized.
+* Online implementation
+:PROPERTIES:
+:ID:       c13e6612-ea8d-4d56-832e-a6d4fa55bf98
+:PUBDATE:  2024-03-01 dv. 16:37
+:END:
+Here there is a little example showing a differentiable simulation of a ball being thrown to a target.
+Once the ball reaches the target, a new target is created randomly.
+This is an extremely simple situation with an explicit integrator, and it is easy to implement even in a browser.
+#+BEGIN_EXPORT HTML
+<canvas id="c" width="800" height="600"></canvas>
+<script  type="importmap">{
+	"imports": {
+		"three": "https://threejs.org/build/three.module.js"
+	}
+}</script>
+<script type="module" src="demo.js"></script>
+#+END_EXPORT
+#  LocalWords:  discretization

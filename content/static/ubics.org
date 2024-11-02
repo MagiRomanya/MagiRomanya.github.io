@@ -1,0 +1,18 @@
+#+title: Intership in UBICS
+
+[[file:../resources/UBICS_LOGO.jpg]]
+
+UBICS is the University of Barcelona Institute of Complex Systems. From July to November of 2021, I was working under the tutelage of Dr. Albert Díaz, dealing with large sets of bibliometric data.
+
+In this project, we needed to query SCOPUS API to search by fields like author name, ORCID, SCOPUS ID, organization, etc., and then go through the obtained results to obtain the desired data.
+The project was mainly written in *python* which we used alongside the *pandas* module, to deal with bibliographic databases.
+Later in the project I ported some of the functionality to work under web technologies using *JavaScript*, in order to build an interactive web application which could deliver matrics to a user.
+
+The main challenge in this project was to deal with typos and fields written differently, such as names and article titles.
+For example, being able to identify that "Magí Romanyà Serrasolsas" is the same author as "Magí R.S." or "magi romanya serrasolsas".
+We had to come up with ad hoc techniques to correctly interpret different strings as the same author name.
+In addition we used the *scikit-learn* module, to make a metric which measured how likely it was that two strings meant the same author.
+
+The project has continued its development once I finished my internship and it is possible to check it out the interactive web page [[https://complemetrix.net/][here]].
+
+[[file:index.org][Go Back]]
