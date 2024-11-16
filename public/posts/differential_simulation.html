@@ -60,7 +60,7 @@
     <span class="black">Romanyà</span>
     </a>
   </h1>
-  <p>Graphics Researcher</p>
+  <p>Computer Graphics PhD student</p>
 </div>
 
 <div class='nav'>
@@ -91,9 +91,9 @@ This article is meant to give easy to follow instructions and requirements to ma
 But first let's talk about what <i>is</i> a differentiable simulation and why it can be useful.
 </p>
 
-<div id="outline-container-org4579208" class="outline-2">
-<h2 id="org4579208"><a href="#org4579208">Why differentiable simulation</a></h2>
-<div class="outline-text-2" id="text-org4579208">
+<div id="outline-container-org1f76b4e" class="outline-2">
+<h2 id="org1f76b4e"><a href="#org1f76b4e">Why differentiable simulation</a></h2>
+<div class="outline-text-2" id="text-org1f76b4e">
 <p>
 The need of differentiable simulations arises when trying to control autonomous physical systems.
 Regular simulations are great tools to predict the trajectory of systems by applying a set of physical laws.
@@ -112,9 +112,9 @@ A differentiable simulation is a regular simulation that is also capable of comp
 </blockquote>
 </div>
 
-<div id="outline-container-org4b8e396" class="outline-3">
-<h3 id="org4b8e396"><a href="#org4b8e396">A simple example</a></h3>
-<div class="outline-text-3" id="text-org4b8e396">
+<div id="outline-container-org04a6c83" class="outline-3">
+<h3 id="org04a6c83"><a href="#org04a6c83">A simple example</a></h3>
+<div class="outline-text-3" id="text-org04a6c83">
 <p>
 To illustrate the need of differentiable simulations, let's introduce a simple example.
 We have a simple simulation of a ball in free-fall, and we want to simulate a scene where the ball is thrown inside a basket.
@@ -122,15 +122,15 @@ In this case, it is easy to define a cost function, by measuring the distance be
 We do not know the proper initial velocities of the ball to make it fall where we want to, but we know that the desired velocities will minimize our cost function.
 By running a minimization procedure on the cost function, changing the initial velocities, it is possible to find a proper solution to our problem.
 Moreover, if our ball simulation is differentiable, the minimization process will converge faster and more accurately, with the help of the cost function gradients.
-In a following <a href="#org7e4fe96">section</a>, this particular example has been implemented here in this article.
+In a following <a href="#orgaea3397">section</a>, this particular example has been implemented here in this article.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org20607b7" class="outline-2">
-<h2 id="org20607b7"><a href="#org20607b7">The math behind computing the gradients: back propagation</a></h2>
-<div class="outline-text-2" id="text-org20607b7">
+<div id="outline-container-orgb2b3f3b" class="outline-2">
+<h2 id="orgb2b3f3b"><a href="#orgb2b3f3b">The math behind computing the gradients: back propagation</a></h2>
+<div class="outline-text-2" id="text-orgb2b3f3b">
 <p>
 In this section we are going to give a high level overview of how does the computation of gradients play out in differentiable simulations.
 It is not essential to understand all of it, but it can be useful in order to adapt the math to specific situations.
@@ -171,9 +171,9 @@ The last state derivative is trivial to compute, as there is no following state 
 \frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}} = \frac{\partial \phi}{\partial \mathbf{s}_{N_s}}
 \end{equation}
 </div>
-<div id="outline-container-org264559c" class="outline-3">
-<h3 id="org264559c"><a href="#org264559c">The \(\mathbf{F}\) function</a></h3>
-<div class="outline-text-3" id="text-org264559c">
+<div id="outline-container-orgea43556" class="outline-3">
+<h3 id="orgea43556"><a href="#orgea43556">The \(\mathbf{F}\) function</a></h3>
+<div class="outline-text-3" id="text-orgea43556">
 <p>
 We have introduced the \(\mathbf{F}\) function, as a way of computing a state from the previous one \(\mathbf{s}_{i} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})\).
 The function \(\mathbf{F}\) is defined by the integration scheme used in the simulation, and it represents an integration step.
@@ -227,9 +227,9 @@ A_i = M - \Delta t\left.\frac{\partial\mathbf{f}}{\partial\mathbf{v}}\right|_i -
 </div>
 </div>
 </div>
-<div id="outline-container-org2948ee0" class="outline-2">
-<h2 id="org2948ee0"><a href="#org2948ee0">Simple implementation overview</a></h2>
-<div class="outline-text-2" id="text-org2948ee0">
+<div id="outline-container-orgf928f94" class="outline-2">
+<h2 id="orgf928f94"><a href="#orgf928f94">Simple implementation overview</a></h2>
+<div class="outline-text-2" id="text-orgf928f94">
 <p>
 With the math knowledge in our belts, we can write a basic implementation of how back propagation would be implemented.
 We are going to use Python to make the code readable and easy to run anywhere.
@@ -291,9 +291,9 @@ With this, the implementation of back-propagation is completed, and our simulati
 </p>
 </div>
 </div>
-<div id="outline-container-org7e4fe96" class="outline-2">
-<h2 id="org7e4fe96"><a href="#org7e4fe96">Online implementation</a></h2>
-<div class="outline-text-2" id="text-org7e4fe96">
+<div id="outline-container-orgaea3397" class="outline-2">
+<h2 id="orgaea3397"><a href="#orgaea3397">Online implementation</a></h2>
+<div class="outline-text-2" id="text-orgaea3397">
 <p>
 Here there is a little example showing a differentiable simulation of a ball being thrown to a target.
 Once the ball reaches the target, a new target is created randomly.
