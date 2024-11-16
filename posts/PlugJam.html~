@@ -28,7 +28,7 @@
     <span class="black">Romanyà</span>
     </a>
   </h1>
-  <p>Graphics Researcher</p>
+  <p>Computer Graphics PhD student</p>
 </div>
 
 <div class='nav'>
@@ -60,9 +60,9 @@
     }
 </style>
 
-<div id="outline-container-org8a05764" class="outline-2">
-<h2 id="org8a05764"><a href="#org8a05764">Pixel Jam 2024</a></h2>
-<div class="outline-text-2" id="text-org8a05764">
+<div id="outline-container-org97c6d5f" class="outline-2">
+<h2 id="org97c6d5f"><a href="#org97c6d5f">Pixel Jam 2024</a></h2>
+<div class="outline-text-2" id="text-org97c6d5f">
 <p>
 With some friends we decided to start 2024 by forcing ourselves to spend the last week of our holidays building a game from scratch.
 We wanted to have a deadline that would force us to work on the project, and encourage us to finish our project in a limited time.
@@ -71,7 +71,7 @@ This was a small one-week Jam hosted on <a href="https://itch.io">itch.io</a>, a
 All the games in the Jam had to have pixel art, but this was not a constraint for us, as we wanted to use pixel art for the game anyway.
 </p>
 
-<div id="org8a98b7c" class="figure">
+<div id="org4f2d09b" class="figure">
 <p><img src="../resources/plug-jam-title.png" alt="plug-jam-title.png" class="center no-border" />
 </p>
 </div>
@@ -83,16 +83,16 @@ Meanwhile, in the more technically inclined part of the team, we decided not to 
 We ended up writing the game in C, and using the fantastic <a href="https://raylib.com">raylib</a> library, which freed us from the tedious parts of graphics programming and came with some really handy functionality already implemented.
 </p>
 
-<div id="orgf8df9ad" class="figure">
+<div id="org2dcc2d1" class="figure">
 <p><img src="../resources/Nintendo_Switch.gif" alt="Nintendo_Switch.gif" class="center no-border pixelated" width="20%" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf7d3e69" class="outline-2">
-<h2 id="orgf7d3e69"><a href="#orgf7d3e69">The development of the game</a></h2>
-<div class="outline-text-2" id="text-orgf7d3e69">
+<div id="outline-container-orgd3d7ded" class="outline-2">
+<h2 id="orgd3d7ded"><a href="#orgd3d7ded">The development of the game</a></h2>
+<div class="outline-text-2" id="text-orgd3d7ded">
 <p>
 The theme of the Jam was revealed to be <b>everything is connected</b>.
 After some brainstorming we decided to make a puzzle game about a character who has to connect various devices to power with a limited length of cable.
@@ -104,14 +104,14 @@ I included a short devlog here, which is oversimplified and mostly wrong.
 You could say that it is <i>inspired</i> by the real thing.
 </p>
 
-<div id="org8daef5c" class="figure">
+<div id="org27ffdcf" class="figure">
 <p><img src="../resources/washing-machine-on.gif" alt="washing-machine-on.gif" class="center no-border pixelated" width="20%" />
 </p>
 </div>
 </div>
-<div id="outline-container-org8676fb1" class="outline-3">
-<h3 id="org8676fb1"><a href="#org8676fb1">Day one: Implementing cable physics</a></h3>
-<div class="outline-text-3" id="text-org8676fb1">
+<div id="outline-container-org5a0d273" class="outline-3">
+<h3 id="org5a0d273"><a href="#org5a0d273">Day one: Implementing cable physics</a></h3>
+<div class="outline-text-3" id="text-org5a0d273">
 <p>
 Initially we thought of the cable as a physical entity that could be bend and collide with the environment.
 The challenge in the game would be keep the cable from becoming too tangled in the level so that all the appliances could be connected to the power outlet.
@@ -121,9 +121,9 @@ To solve this, we had to go back to do some brainstorming and come up with new i
 </p>
 </div>
 </div>
-<div id="outline-container-org14544e1" class="outline-3">
-<h3 id="org14544e1"><a href="#org14544e1">Day two: Solving the physics with staples</a></h3>
-<div class="outline-text-3" id="text-org14544e1">
+<div id="outline-container-orgd8bc5c8" class="outline-3">
+<h3 id="orgd8bc5c8"><a href="#orgd8bc5c8">Day two: Solving the physics with staples</a></h3>
+<div class="outline-text-3" id="text-orgd8bc5c8">
 <p>
 We liked the idea of connecting appliances with an electric cable and we did not want to give up on this idea yet.
 So to solve the cable physics problem, we removed the physics from the equation.
@@ -132,16 +132,16 @@ To avoid obstacles, the player had to staple the cable to the wall.
 This in itself was an interesting mechanic, the staples could be a limited resource, which in addition to limiting the length of the cable, could lead to interesting level design.
 </p>
 
-<div id="orgfacce47" class="figure">
+<div id="org501059e" class="figure">
 <p><img src="../resources/pixel-jam-screenshot0.png" alt="pixel-jam-screenshot0.png" class="center no-border" width="100%" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Screenshot of the game showing the cable being stapled to the wall to avoid the obstacle and connect the washing machine to the power outlet.</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb557611" class="outline-3">
-<h3 id="orgb557611"><a href="#orgb557611">Day three: Reading the levels from an image file</a></h3>
-<div class="outline-text-3" id="text-orgb557611">
+<div id="outline-container-orgcff5c47" class="outline-3">
+<h3 id="orgcff5c47"><a href="#orgcff5c47">Day three: Reading the levels from an image file</a></h3>
+<div class="outline-text-3" id="text-orgcff5c47">
 <p>
 With the core mechanic implemented, we needed to work on a way to easily create and iterate game levels.
 Since we decided to write the game in C and not use a game engine, we did not have a level editor at our disposal.
@@ -154,9 +154,9 @@ The <i>level loader</i> was definitely the most useful part of our game and it i
 </p>
 </div>
 </div>
-<div id="outline-container-orgc79b36b" class="outline-3">
-<h3 id="orgc79b36b"><a href="#orgc79b36b">Day four: Making the levels (and hats)</a></h3>
-<div class="outline-text-3" id="text-orgc79b36b">
+<div id="outline-container-org4bc0df4" class="outline-3">
+<h3 id="org4bc0df4"><a href="#org4bc0df4">Day four: Making the levels (and hats)</a></h3>
+<div class="outline-text-3" id="text-org4bc0df4">
 <p>
 With the <i>level loader</i> and the cable mechanic implemented, we only needed to make a few levels to have a playable game.
 This was an interesting part of the development process, and also maybe the most difficult.
@@ -173,7 +173,7 @@ By pressing a key, the player could cycle between different hats for the main ch
 </p>
 
 
-<div id="orgdd545ec" class="figure">
+<div id="org72be15c" class="figure">
 <p><img src="../resources/plug-jam-hats.png" alt="plug-jam-hats.png" class="center no-border pixelated" width="40%" />
 </p>
 </div>
@@ -181,9 +181,9 @@ By pressing a key, the player could cycle between different hats for the main ch
 </div>
 </div>
 
-<div id="outline-container-org4f193ad" class="outline-2">
-<h2 id="org4f193ad"><a href="#org4f193ad">The completed game</a></h2>
-<div class="outline-text-2" id="text-org4f193ad">
+<div id="outline-container-org00f6dcd" class="outline-2">
+<h2 id="org00f6dcd"><a href="#org00f6dcd">The completed game</a></h2>
+<div class="outline-text-2" id="text-org00f6dcd">
 <p>
 The final game is published in <a href="https://itch.io">itch.io</a> and it is free for anyone to download.
 </p>
@@ -194,7 +194,7 @@ We have not tested making a build for MacOS, but it should theoretically work, a
 Because of time constraints, we only ended up publishing a Windows build in <a href="https://itch.io">itch.io</a>.
 </p>
 
-<div id="org4eee7fd" class="figure">
+<div id="org4ac8e74" class="figure">
 <p><img src="../resources/player-run.gif" alt="player-run.gif" class="center no-border pixelated" width="20%" />
 </p>
 </div>
