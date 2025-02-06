@@ -91,9 +91,9 @@ I've decided to write this article because I've encountered a number of problems
 Some of these were problems related with me not using <code>numpy</code> or <code>matplotlib</code> correctly, and others were concerned with some unexpected geometry scaling.
 </p>
 
-<div id="outline-container-orgc8a21a2" class="outline-2">
-<h2 id="orgc8a21a2"><a href="#orgc8a21a2">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></h2>
-<div class="outline-text-2" id="text-orgc8a21a2">
+<div id="outline-container-orgd87424b" class="outline-2">
+<h2 id="orgd87424b"><a href="#orgd87424b">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></h2>
+<div class="outline-text-2" id="text-orgd87424b">
 <p>
 First let's discuss how to use correctly use <code>matplotlib</code> and <code>numpy</code> to compute and plot a two dimensional gradient field.
 We are going to discuss an example where we want to plot the function \(z(x,y) = x^2 +y\) as level curves and also it's gradient fields.
@@ -126,7 +126,7 @@ plt.show()
 </div>
 
 
-<div id="orge86e2b9" class="figure">
+<div id="org3010108" class="figure">
 <p><img src="../resources/gradients1.png" alt="gradients1.png" class="center no-border" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Result of the code snippet provided above. We have correctly generated a plot which depicts our 2 dimensional function with a color-map and level curves, together with a gradient vector field.</p>
@@ -134,15 +134,15 @@ plt.show()
 </div>
 </div>
 
-<div id="outline-container-org1f5eb9e" class="outline-2">
-<h2 id="org1f5eb9e"><a href="#org1f5eb9e">The geometry problem</a></h2>
-<div class="outline-text-2" id="text-org1f5eb9e">
+<div id="outline-container-org10816a4" class="outline-2">
+<h2 id="org10816a4"><a href="#org10816a4">The geometry problem</a></h2>
+<div class="outline-text-2" id="text-org10816a4">
 <p>
 With this, we have seemingly been able to compute the gradients and plot them correctly.
 However if we make the same plot but with a different domain \(x\in [0,1]\), \(y\in [0,10]\) we get the figure:
 </p>
 
-<div id="org927ec53" class="figure">
+<div id="org3dc3cbd" class="figure">
 <p><img src="../resources/gradients2.png" alt="gradients2.png" class="center no-border" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Plot made using the same code snippet, but tweaking the domain evaluated. In this plot it is plain to see that the gradient field is <b>not</b> perpendicular to the level curves.</p>
@@ -153,7 +153,7 @@ The problem with this result, is that the gradient field is not perpendicular to
 This happens because now that we have changed the domain, we have a \(y\) axis which has been compressed to fit 10 units in the size of 1.
 Consequently the gradients also have been squished in the \(y\) axis.
 <b>This is not a bug but the correct representation</b>.
-However, we might want our gradient visualization to be perpendicular to the level curves, to make the visualization of figure <a href="#org927ec53">2</a> clearer.
+However, we might want our gradient visualization to be perpendicular to the level curves, to make the visualization of figure <a href="#org3dc3cbd">2</a> clearer.
 This can be done by defining a scale ratio variable \(s = \frac{\textrm{y scale}}{\textrm{x scale}}\).
 With this we have to apply the following transformation to the gradients:
 \[|\vec{\nabla} z| = \sqrt{{\frac{\partial z}{\partial x}}^2 + {\frac{\partial z}{\partial y}}^2}\]
@@ -183,7 +183,7 @@ plt.quiver(X, Y, grad_x<span class="org-operator">/</span>norm<span class="org-o
 </div>
 
 
-<div id="orgbfaf99d" class="figure">
+<div id="orgdc61c26" class="figure">
 <p><img src="../resources/gradients3.png" alt="gradients3.png" class="center no-border" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Result of the code snippet above. Here we can see that the gradient field is again perpendicular to the level curves as we would expect.</p>
