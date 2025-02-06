@@ -6,35 +6,45 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Differential Simulation and back-propagation</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Magí Romanyà Serrasolsas" />
+<meta name="generator" content="Org Mode" />
 <link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>'>
       <meta name='viewport' content='width=device-width, initial-scale=1'>
       <link rel='stylesheet' href='https://code.cdn.mozilla.net/fonts/fira.css'>
       <link rel='stylesheet' href='/css/site.css' type='text/css'/>
       <link rel='stylesheet' href='/css/syntax-coloring.css' type='text/css'/>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -71,7 +81,7 @@
 </ul>
 </div>
 </div>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Differential Simulation and back-propagation
 <br />
 <span class="subtitle">Published on 06 Sep, 2023 by Magí Romanyà Serrasolsas.</span>
@@ -81,9 +91,9 @@ This article is meant to give easy to follow instructions and requirements to ma
 But first let's talk about what <i>is</i> a differentiable simulation and why it can be useful.
 </p>
 
-<div id="outline-container-orgfa3dc8f" class="outline-2">
-<h2 id="orgfa3dc8f"><a href="#orgfa3dc8f">Why differentiable simulation</a></h2>
-<div class="outline-text-2" id="text-orgfa3dc8f">
+<div id="outline-container-org5cee3c3" class="outline-2">
+<h2 id="org5cee3c3"><a href="#org5cee3c3">Why differentiable simulation</a></h2>
+<div class="outline-text-2" id="text-org5cee3c3">
 <p>
 The need of differentiable simulations arises when trying to control autonomous physical systems.
 Regular simulations are great tools to predict the trajectory of systems by applying a set of physical laws.
@@ -102,9 +112,9 @@ A differentiable simulation is a regular simulation that is also capable of comp
 </blockquote>
 </div>
 
-<div id="outline-container-org453634c" class="outline-3">
-<h3 id="org453634c"><a href="#org453634c">A simple example</a></h3>
-<div class="outline-text-3" id="text-org453634c">
+<div id="outline-container-org6584948" class="outline-3">
+<h3 id="org6584948"><a href="#org6584948">A simple example</a></h3>
+<div class="outline-text-3" id="text-org6584948">
 <p>
 To illustrate the need of differentiable simulations, let's introduce a simple example.
 We have a simple simulation of a ball in free-fall, and we want to simulate a scene where the ball is thrown inside a basket.
@@ -112,15 +122,15 @@ In this case, it is easy to define a cost function, by measuring the distance be
 We do not know the proper initial velocities of the ball to make it fall where we want to, but we know that the desired velocities will minimize our cost function.
 By running a minimization procedure on the cost function, changing the initial velocities, it is possible to find a proper solution to our problem.
 Moreover, if our ball simulation is differentiable, the minimization process will converge faster and more accurately, with the help of the cost function gradients.
-In a following <a href="#org35334ab">section</a>, this particular example has been implemented here in this article.
+In a following <a href="#org73c75b3">section</a>, this particular example has been implemented here in this article.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge3874e9" class="outline-2">
-<h2 id="orge3874e9"><a href="#orge3874e9">The math behind computing the gradients: back propagation</a></h2>
-<div class="outline-text-2" id="text-orge3874e9">
+<div id="outline-container-orgba674f7" class="outline-2">
+<h2 id="orgba674f7"><a href="#orgba674f7">The math behind computing the gradients: back propagation</a></h2>
+<div class="outline-text-2" id="text-orgba674f7">
 <p>
 In this section we are going to give a high level overview of how does the computation of gradients play out in differentiable simulations.
 It is not essential to understand all of it, but it can be useful in order to adapt the math to specific situations.
@@ -161,9 +171,9 @@ The last state derivative is trivial to compute, as there is no following state 
 \frac{\mathrm{d}\phi}{\mathrm{d} \mathbf{s}_{N_s}} = \frac{\partial \phi}{\partial \mathbf{s}_{N_s}}
 \end{equation}
 </div>
-<div id="outline-container-orgb32956c" class="outline-3">
-<h3 id="orgb32956c"><a href="#orgb32956c">The \(\mathbf{F}\) function</a></h3>
-<div class="outline-text-3" id="text-orgb32956c">
+<div id="outline-container-org15f84f9" class="outline-3">
+<h3 id="org15f84f9"><a href="#org15f84f9">The \(\mathbf{F}\) function</a></h3>
+<div class="outline-text-3" id="text-org15f84f9">
 <p>
 We have introduced the \(\mathbf{F}\) function, as a way of computing a state from the previous one \(\mathbf{s}_{i} = \mathbf{F}(\mathbf{s}_i,\mathbf{p})\).
 The function \(\mathbf{F}\) is defined by the integration scheme used in the simulation, and it represents an integration step.
@@ -217,20 +227,20 @@ A_i = M - \Delta t\left.\frac{\partial\mathbf{f}}{\partial\mathbf{v}}\right|_i -
 </div>
 </div>
 </div>
-<div id="outline-container-orga484292" class="outline-2">
-<h2 id="orga484292"><a href="#orga484292">Simple implementation overview</a></h2>
-<div class="outline-text-2" id="text-orga484292">
+<div id="outline-container-orgff48587" class="outline-2">
+<h2 id="orgff48587"><a href="#orgff48587">Simple implementation overview</a></h2>
+<div class="outline-text-2" id="text-orgff48587">
 <p>
 With the math knowledge in our belts, we can write a basic implementation of how back propagation would be implemented.
 We are going to use Python to make the code readable and easy to run anywhere.
 First we need to define the cost function and it's partial derivatives.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">phi</span>(states: List[np.array], paramters: np.array) -&gt; <span class="org-builtin">float</span>:
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">phi</span>(states: List[np.array], paramters: np.array) <span class="org-operator">-&gt;</span> <span class="org-builtin">float</span>:
     ...
-<span class="org-keyword">def</span> <span class="org-function-name">partial_dphi_dp</span>(states: List[np.array], paramters: np.array) -&gt; np.array:
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dphi_dp</span>(states: List[np.array], paramters: np.array) <span class="org-operator">-&gt;</span> np.array:
     ...
-<span class="org-keyword">def</span> <span class="org-function-name">partial_dphi_ds</span>(state: np.array, paramters: np.array) -&gt; np.array:
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dphi_ds</span>(state: np.array, paramters: np.array) <span class="org-operator">-&gt;</span> np.array:
     ...
 </pre>
 </div>
@@ -244,11 +254,11 @@ Similarly, the partial derivative with respect to state will have a length of tw
 Then, we have to define the state function \(\mathbf{F}\) and it's partial derivatives.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">F</span>(state: np.array, paramters: np.array) -&gt; np.array:
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">F</span>(state: np.array, paramters: np.array) <span class="org-operator">-&gt;</span> np.array:
     ...
-<span class="org-keyword">def</span> <span class="org-function-name">partial_dF_dp</span>(state: np.array, paramters: np.array) -&gt; np.array:
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dF_dp</span>(state: np.array, paramters: np.array) <span class="org-operator">-&gt;</span> np.array:
     ...
-<span class="org-keyword">def</span> <span class="org-function-name">partial_dF_ds</span>(state: np.array, paramters: np.array) -&gt; np.array:
+<span class="org-keyword">def</span> <span class="org-function-name">partial_dF_ds</span>(state: np.array, paramters: np.array) <span class="org-operator">-&gt;</span> np.array:
     ...
 </pre>
 </div>
@@ -264,15 +274,15 @@ With the \(\phi\) and \(\mathbf{F}\) functions and partial derivatives defined, 
 
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">Initialize the total derivatives</span>
-<span class="org-variable-name">dphi_dp</span> = partial_dphi_dp(states)
-<span class="org-variable-name">dphi_ds</span>[Ns] = partial_dphi_ds(states[Ns])
+<span class="org-variable-name">dphi_dp</span> <span class="org-operator">=</span> partial_dphi_dp(states)
+<span class="org-variable-name">dphi_ds</span>[Ns] <span class="org-operator">=</span> partial_dphi_ds(states[Ns])
 <span class="org-comment-delimiter"># </span><span class="org-comment">Backward loop from Ns-1 to 0</span>
-<span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(Ns-1, -1, -1):
-    <span class="org-variable-name">dphi_ds</span>[i] = partial_dphi_ds(states[i]) + dphi_ds[i+1] @ partial_dF_ds(states[i])
-    <span class="org-variable-name">dphi_dp</span> += dphi_ds[i+1] @ partial_dF_dp(states[i])
+<span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(Ns<span class="org-operator">-</span>1, <span class="org-operator">-</span>1, <span class="org-operator">-</span>1):
+    <span class="org-variable-name">dphi_ds</span>[i] <span class="org-operator">=</span> partial_dphi_ds(states[i]) <span class="org-operator">+</span> dphi_ds[i<span class="org-operator">+</span>1] @ partial_dF_ds(states[i])
+    <span class="org-variable-name">dphi_dp</span> <span class="org-operator">+=</span> dphi_ds[i<span class="org-operator">+</span>1] @ partial_dF_dp(states[i])
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">The initial conditions term</span>
-<span class="org-variable-name">dphi_dp</span> += dphi_ds[0] @ partial_ds0_dp()
+<span class="org-variable-name">dphi_dp</span> <span class="org-operator">+=</span> dphi_ds[0] @ partial_ds0_dp()
 </pre>
 </div>
 
@@ -281,9 +291,9 @@ With this, the implementation of back-propagation is completed, and our simulati
 </p>
 </div>
 </div>
-<div id="outline-container-org35334ab" class="outline-2">
-<h2 id="org35334ab"><a href="#org35334ab">Online implementation</a></h2>
-<div class="outline-text-2" id="text-org35334ab">
+<div id="outline-container-org73c75b3" class="outline-2">
+<h2 id="org73c75b3"><a href="#org73c75b3">Online implementation</a></h2>
+<div class="outline-text-2" id="text-org73c75b3">
 <p>
 Here there is a little example showing a differentiable simulation of a ball being thrown to a target.
 Once the ball reaches the target, a new target is created randomly.

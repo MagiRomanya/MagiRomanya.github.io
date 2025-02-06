@@ -6,35 +6,45 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Continuous Adjoint Method</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Magí Romanyà Serrasolsas" />
+<meta name="generator" content="Org Mode" />
 <link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>'>
       <meta name='viewport' content='width=device-width, initial-scale=1'>
       <link rel='stylesheet' href='https://code.cdn.mozilla.net/fonts/fira.css'>
       <link rel='stylesheet' href='/css/site.css' type='text/css'/>
       <link rel='stylesheet' href='/css/syntax-coloring.css' type='text/css'/>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -71,15 +81,15 @@
 </ul>
 </div>
 </div>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Continuous Adjoint Method
 <br />
 <span class="subtitle">Published on 16 Nov, 2023 by Magí Romanyà Serrasolsas.</span>
 </h1>
 
-<div id="outline-container-org6965057" class="outline-2">
-<h2 id="org6965057"><a href="#org6965057">Introduction</a></h2>
-<div class="outline-text-2" id="text-org6965057">
+<div id="outline-container-orgdcfea5f" class="outline-2">
+<h2 id="orgdcfea5f"><a href="#orgdcfea5f">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgdcfea5f">
 <p>
 In my master thesis, I've been working in propagating adjoints backwards, which looked like the discretization of solving an ODE in reverse.
 In this article, we are going to see that in fact, when using the back propagation algorithm, covered in this <a href="differential_simulation.html">article</a>, we are solving an ODE.
@@ -89,9 +99,9 @@ The work shown in this article relies heavily on the excellent Standford tutoria
 </div>
 </div>
 
-<div id="outline-container-org6949842" class="outline-2">
-<h2 id="org6949842"><a href="#org6949842">The problem setting</a></h2>
-<div class="outline-text-2" id="text-org6949842">
+<div id="outline-container-org9607f32" class="outline-2">
+<h2 id="org9607f32"><a href="#org9607f32">The problem setting</a></h2>
+<div class="outline-text-2" id="text-org9607f32">
 <p>
 First we are going to write down our notation and describe the problem we want to solve.
 Analytically, solving a forward simulation, is equivalent as integrating a certain differential equation.
@@ -135,9 +145,9 @@ Where the \(\mathbf{f}\) and \(\mathbf{g}\) functions are the ODE and the initia
 </div>
 </div>
 
-<div id="outline-container-org56f6a63" class="outline-2">
-<h2 id="org56f6a63"><a href="#org56f6a63">Solving the minimization problem</a></h2>
-<div class="outline-text-2" id="text-org56f6a63">
+<div id="outline-container-org2e3d77a" class="outline-2">
+<h2 id="org2e3d77a"><a href="#org2e3d77a">Solving the minimization problem</a></h2>
+<div class="outline-text-2" id="text-org2e3d77a">
 <p>
 Now that we have the formulation of the problem, we can start solving it.
 The problem is formally known as a minimization with constraints and can be approached using lagrange multipliers.

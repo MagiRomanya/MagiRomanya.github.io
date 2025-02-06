@@ -14,10 +14,10 @@
   <link>https://magiromanya.com/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sat, 16 Nov 2024 15:06:17 +0000</pubDate>
-  <lastBuildDate>Sat, 16 Nov 2024 15:06:17 +0000</lastBuildDate>
-  <generator>Emacs 27.1 Org-mode 9.3</generator>
-  <webMaster>runner@fv-az1393-935 (Magí Romanyà)</webMaster>
+  <pubDate>Thu, 06 Feb 2025 11:28:50 +0000</pubDate>
+  <lastBuildDate>Thu, 06 Feb 2025 11:28:50 +0000</lastBuildDate>
+  <generator>Emacs 29.3 Org-mode 9.6.15</generator>
+  <webMaster>runner@fv-az816-902 (Magí Romanyà)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
     <title>Magí Article Feed</title>
@@ -28,7 +28,7 @@
   <item>
     <title>Everything is connected: A Dev diary of Pixel Jam 2024</title>
     <link>https://magiromanya.com/posts/PlugJam.html</link>
-    <author>runner@fv-az1393-935 (Magí Romanyà)</author>
+    <author>runner@fv-az816-902 (Magí Romanyà)</author>
     <guid isPermaLink="false">https://magiromanya.com/posts/PlugJam.html</guid>
     <pubDate>Sun, 03 Mar 2024 00:00:00 +0000</pubDate>
 
@@ -37,7 +37,7 @@
   <item>
     <title>Continuous Adjoint Method</title>
     <link>https://magiromanya.com/posts/continuous_adjoint_method.html</link>
-    <author>runner@fv-az1393-935 (Magí Romanyà)</author>
+    <author>runner@fv-az816-902 (Magí Romanyà)</author>
     <guid isPermaLink="false">https://magiromanya.com/posts/continuous_adjoint_method.html</guid>
     <pubDate>Thu, 16 Nov 2023 00:00:00 +0000</pubDate>
 
@@ -46,7 +46,7 @@
   <item>
     <title>Visualization Of Gradient Fields</title>
     <link>https://magiromanya.com/posts/visualization_of_gradient_fields.html</link>
-    <author>runner@fv-az1393-935 (Magí Romanyà)</author>
+    <author>runner@fv-az816-902 (Magí Romanyà)</author>
     <guid isPermaLink="false">https://magiromanya.com/posts/visualization_of_gradient_fields.html</guid>
     <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
 
@@ -55,7 +55,7 @@
   <item>
     <title>Differential Simulation and back-propagation</title>
     <link>https://magiromanya.com/posts/differential_simulation.html</link>
-    <author>runner@fv-az1393-935 (Magí Romanyà)</author>
+    <author>runner@fv-az816-902 (Magí Romanyà)</author>
     <guid isPermaLink="false">https://magiromanya.com/posts/differential_simulation.html</guid>
     <pubDate>Wed, 06 Sep 2023 00:00:00 +0000</pubDate>
 

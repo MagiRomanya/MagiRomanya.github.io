@@ -6,35 +6,45 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Visualization Of Gradient Fields</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Magí Romanyà Serrasolsas" />
+<meta name="generator" content="Org Mode" />
 <link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>'>
       <meta name='viewport' content='width=device-width, initial-scale=1'>
       <link rel='stylesheet' href='https://code.cdn.mozilla.net/fonts/fira.css'>
       <link rel='stylesheet' href='/css/site.css' type='text/css'/>
       <link rel='stylesheet' href='/css/syntax-coloring.css' type='text/css'/>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -71,7 +81,7 @@
 </ul>
 </div>
 </div>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Visualization Of Gradient Fields
 <br />
 <span class="subtitle">Published on 06 Oct, 2023 by Magí Romanyà Serrasolsas.</span>
@@ -81,9 +91,9 @@ I've decided to write this article because I've encountered a number of problems
 Some of these were problems related with me not using <code>numpy</code> or <code>matplotlib</code> correctly, and others were concerned with some unexpected geometry scaling.
 </p>
 
-<div id="outline-container-orgdfe21b4" class="outline-2">
-<h2 id="orgdfe21b4"><a href="#orgdfe21b4">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></h2>
-<div class="outline-text-2" id="text-orgdfe21b4">
+<div id="outline-container-orgc8a21a2" class="outline-2">
+<h2 id="orgc8a21a2"><a href="#orgc8a21a2">A few thing to do when using <code>matplotlib</code> and <code>numpy</code> to compute and plot gradient fields</a></h2>
+<div class="outline-text-2" id="text-orgc8a21a2">
 <p>
 First let's discuss how to use correctly use <code>matplotlib</code> and <code>numpy</code> to compute and plot a two dimensional gradient field.
 We are going to discuss an example where we want to plot the function \(z(x,y) = x^2 +y\) as level curves and also it's gradient fields.
@@ -102,21 +112,21 @@ Note all the parameters that we have to introduce to get the expected result.
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
-<span class="org-variable-name">x_values</span> = np.linspace(0, 1, 15)
-<span class="org-variable-name">y_values</span> = np.linspace(0, 1, 15)
-<span class="org-variable-name">X</span>, <span class="org-variable-name">Y</span> = np.meshgrid(x_values, y_values, indexing=<span class="org-string">'ij'</span>)
-<span class="org-variable-name">Z</span> = X**2 + Y
-<span class="org-variable-name">dx</span> = x_values[1] - x_values[0]
-<span class="org-variable-name">dy</span> = y_values[1] - y_values[0]
-<span class="org-variable-name">grad_x</span>, <span class="org-variable-name">grad_y</span> = np.gradient(Z, dx, dy)
-plt.contourf(X, Y, Z, levels=10) <span class="org-comment-delimiter"># </span><span class="org-comment">Plot the color map with level curves</span>
-plt.quiver(X, Y, grad_x, grad_y, color=<span class="org-string">'honeydew'</span>, angles=<span class="org-string">"xy"</span>) <span class="org-comment-delimiter"># </span><span class="org-comment">Plot the gradient field</span>
+<span class="org-variable-name">x_values</span> <span class="org-operator">=</span> np.linspace(0, 1, 15)
+<span class="org-variable-name">y_values</span> <span class="org-operator">=</span> np.linspace(0, 1, 15)
+<span class="org-variable-name">X</span>, <span class="org-variable-name">Y</span> <span class="org-operator">=</span> np.meshgrid(x_values, y_values, indexing<span class="org-operator">=</span><span class="org-string">'ij'</span>)
+<span class="org-variable-name">Z</span> <span class="org-operator">=</span> X<span class="org-operator">**</span>2 <span class="org-operator">+</span> Y
+<span class="org-variable-name">dx</span> <span class="org-operator">=</span> x_values[1] <span class="org-operator">-</span> x_values[0]
+<span class="org-variable-name">dy</span> <span class="org-operator">=</span> y_values[1] <span class="org-operator">-</span> y_values[0]
+<span class="org-variable-name">grad_x</span>, <span class="org-variable-name">grad_y</span> <span class="org-operator">=</span> np.gradient(Z, dx, dy)
+plt.contourf(X, Y, Z, levels<span class="org-operator">=</span>10) <span class="org-comment-delimiter"># </span><span class="org-comment">Plot the color map with level curves</span>
+plt.quiver(X, Y, grad_x, grad_y, color<span class="org-operator">=</span><span class="org-string">'honeydew'</span>, angles<span class="org-operator">=</span><span class="org-string">"xy"</span>) <span class="org-comment-delimiter"># </span><span class="org-comment">Plot the gradient field</span>
 plt.show()
 </pre>
 </div>
 
 
-<div class="figure">
+<div id="orge86e2b9" class="figure">
 <p><img src="../resources/gradients1.png" alt="gradients1.png" class="center no-border" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Result of the code snippet provided above. We have correctly generated a plot which depicts our 2 dimensional function with a color-map and level curves, together with a gradient vector field.</p>
@@ -124,15 +134,15 @@ plt.show()
 </div>
 </div>
 
-<div id="outline-container-orgfc75133" class="outline-2">
-<h2 id="orgfc75133"><a href="#orgfc75133">The geometry problem</a></h2>
-<div class="outline-text-2" id="text-orgfc75133">
+<div id="outline-container-org1f5eb9e" class="outline-2">
+<h2 id="org1f5eb9e"><a href="#org1f5eb9e">The geometry problem</a></h2>
+<div class="outline-text-2" id="text-org1f5eb9e">
 <p>
 With this, we have seemingly been able to compute the gradients and plot them correctly.
 However if we make the same plot but with a different domain \(x\in [0,1]\), \(y\in [0,10]\) we get the figure:
 </p>
 
-<div id="org290754e" class="figure">
+<div id="org927ec53" class="figure">
 <p><img src="../resources/gradients2.png" alt="gradients2.png" class="center no-border" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Plot made using the same code snippet, but tweaking the domain evaluated. In this plot it is plain to see that the gradient field is <b>not</b> perpendicular to the level curves.</p>
@@ -143,7 +153,7 @@ The problem with this result, is that the gradient field is not perpendicular to
 This happens because now that we have changed the domain, we have a \(y\) axis which has been compressed to fit 10 units in the size of 1.
 Consequently the gradients also have been squished in the \(y\) axis.
 <b>This is not a bug but the correct representation</b>.
-However, we might want our gradient visualization to be perpendicular to the level curves, to make the visualization of figure <a href="#org290754e">2</a> clearer.
+However, we might want our gradient visualization to be perpendicular to the level curves, to make the visualization of figure <a href="#org927ec53">2</a> clearer.
 This can be done by defining a scale ratio variable \(s = \frac{\textrm{y scale}}{\textrm{x scale}}\).
 With this we have to apply the following transformation to the gradients:
 \[|\vec{\nabla} z| = \sqrt{{\frac{\partial z}{\partial x}}^2 + {\frac{\partial z}{\partial y}}^2}\]
@@ -157,23 +167,23 @@ Here we have the python code to implement this, which is easier than the math mi
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
-<span class="org-variable-name">x_values</span> = np.linspace(0, 1, 15)
-<span class="org-variable-name">y_values</span> = np.linspace(0, 10, 15)
-<span class="org-variable-name">scale</span> = (1 / 10)**2
-<span class="org-variable-name">X</span>, <span class="org-variable-name">Y</span> = np.meshgrid(x_values, y_values, indexing=<span class="org-string">'ij'</span>)
-<span class="org-variable-name">Z</span> = X**2 + Y
-<span class="org-variable-name">dx</span> = x_values[1] - x_values[0]
-<span class="org-variable-name">dy</span> = y_values[1] - y_values[0]
-<span class="org-variable-name">grad_x</span>, <span class="org-variable-name">grad_y</span> = np.gradient(Z, dx, dy)
-<span class="org-variable-name">true_norm</span> = np.sqrt((grad_x)**2 + grad_y**2)
-<span class="org-variable-name">norm</span> = np.sqrt((grad_x*scale)**2 + grad_y**2)
-plt.contourf(X, Y, Z, levels=10)
-plt.quiver(X, Y, grad_x/norm*scale*true_norm, grad_y/norm*true_norm, color=<span class="org-string">'honeydew'</span>, angles=<span class="org-string">"xy"</span>)
+<span class="org-variable-name">x_values</span> <span class="org-operator">=</span> np.linspace(0, 1, 15)
+<span class="org-variable-name">y_values</span> <span class="org-operator">=</span> np.linspace(0, 10, 15)
+<span class="org-variable-name">scale</span> <span class="org-operator">=</span> (1 <span class="org-operator">/</span> 10)<span class="org-operator">**</span>2
+<span class="org-variable-name">X</span>, <span class="org-variable-name">Y</span> <span class="org-operator">=</span> np.meshgrid(x_values, y_values, indexing<span class="org-operator">=</span><span class="org-string">'ij'</span>)
+<span class="org-variable-name">Z</span> <span class="org-operator">=</span> X<span class="org-operator">**</span>2 <span class="org-operator">+</span> Y
+<span class="org-variable-name">dx</span> <span class="org-operator">=</span> x_values[1] <span class="org-operator">-</span> x_values[0]
+<span class="org-variable-name">dy</span> <span class="org-operator">=</span> y_values[1] <span class="org-operator">-</span> y_values[0]
+<span class="org-variable-name">grad_x</span>, <span class="org-variable-name">grad_y</span> <span class="org-operator">=</span> np.gradient(Z, dx, dy)
+<span class="org-variable-name">true_norm</span> <span class="org-operator">=</span> np.sqrt((grad_x)<span class="org-operator">**</span>2 <span class="org-operator">+</span> grad_y<span class="org-operator">**</span>2)
+<span class="org-variable-name">norm</span> <span class="org-operator">=</span> np.sqrt((grad_x<span class="org-operator">*</span>scale)<span class="org-operator">**</span>2 <span class="org-operator">+</span> grad_y<span class="org-operator">**</span>2)
+plt.contourf(X, Y, Z, levels<span class="org-operator">=</span>10)
+plt.quiver(X, Y, grad_x<span class="org-operator">/</span>norm<span class="org-operator">*</span>scale<span class="org-operator">*</span>true_norm, grad_y<span class="org-operator">/</span>norm<span class="org-operator">*</span>true_norm, color<span class="org-operator">=</span><span class="org-string">'honeydew'</span>, angles<span class="org-operator">=</span><span class="org-string">"xy"</span>)
 </pre>
 </div>
 
 
-<div class="figure">
+<div id="orgbfaf99d" class="figure">
 <p><img src="../resources/gradients3.png" alt="gradients3.png" class="center no-border" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Result of the code snippet above. Here we can see that the gradient field is again perpendicular to the level curves as we would expect.</p>
