@@ -1,22 +1,10 @@
-#+title: About
 #+author: Magí Romanyà Serrasolsas
 #+options: toc:nil
 
-I am a computer graphics PhD student under Dr. Miguel Ángel Otaduy, focusing in differentiable physics simulations.
-With a background in physics from Universitat de Barcelona and a Master's in computer graphics from URJC, I'm passionate about recreating everyday physical phenomena within virtual enviroments.
+I’m a PhD student in computer graphics at [[https://mslab.es/][MSLab]] under the supervision of Dr. Miguel A. Otaduy. My research explores differentiable physics simulations, with a focus on rods and rigid-body dynamics.
 
-* Blog Posts
-Sometimes I like to write short posts about things I have found interesting. Here are the latest posts:
-# Include the first 2 articles 2*2 + 2 + 1= 7
-#+INCLUDE: "../posts/sitemap.org" :lines "2-7"
-#+HTML: <a href='/posts/sitemap.html'>Full Blog</a>
-
-* Past Projects
-Here list the internships or projects I've been involved during my career.
-- [[file:mslab.org][Master's Thesis in MSLab]]: Differentiable simulation of mass-spring simulations with contacts.
-- [[file:tfg.org][Undergraduate Thesis Project]]: Computing crustal deformation of the Iberian Peninsula.
-- [[file:alba.org][ALBA Synchrotron]]: Designing an electron beam simulation from a thermionic RF-gun.
-- [[file:ubics.org][UBICS]]: Working with large sets of bibliometric data using scopus and python.
+* Research
+#+INCLUDE: "publications.org"
 
 * Contact information
 - [[mailto:magiromanya@gmail.com][Email: magiromanya@gmail.com]]

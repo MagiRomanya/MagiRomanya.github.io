@@ -1,0 +1,25 @@
+[
+    {
+        "title": "Painless Differentiable Rotation Dynamics",
+        "authors": [
+         {
+            "name": "Magí Romanyà Serrasolsas",
+            "website": "https://magiromanya.com/"
+         },
+         {
+            "name": "Juan J. Casafranca",
+            "website": ""
+         },
+         {
+            "name": "Miguel A. Otaduy",
+            "website": "http://mslab.es/otaduy/"
+         }
+        ],
+        "year": "2025",
+        "journal": "ACM Transactions on Graphics (TOG) Volume 44, Issue 4",
+        "image": "resources/publications/images/painless-teaser.png",
+        "pdf": "resources/publications/pdf/Painless-Differentiable-Rotation-Dynamics.pdf",
+        "video": "https://youtu.be/w5Bn6r5ClRY",
+        "project": "https://mslab.es/projects/Painless/"
+    }
+]

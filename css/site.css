@@ -239,3 +239,41 @@ body img.pixelated {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
+
+.publication {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2em;
+}
+
+.teaser {
+  width: 180px;
+  height: auto;
+  margin-right: 1em;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.pub-info h3 {
+  margin: 0 0 0.3em;
+}
+
+.authors a {
+  color: #d6336c;
+  text-decoration: none;
+}
+
+.pub-buttons {
+  margin-top: 0.5em;
+}
+
+.pub-buttons .button {
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  margin-right: 0.5em;
+  background: #eee;
+  color: #444;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+}

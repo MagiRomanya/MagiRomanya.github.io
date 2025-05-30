@@ -1,0 +1,16 @@
+#+BEGIN_EXPORT html
+<div class="publications">
+
+<div class="publication">
+    <a href="resources/publications/pdf/Painless-Differentiable-Rotation-Dynamics.pdf">
+    <img src="resources/publications/images/painless-teaser.png" alt="Paper teaser" class="teaser" />
+    </a>
+  <div class="pub-info">
+    <h3>Painless Differentiable Rotation Dynamics</h3>
+    <p class="authors"><a href="https://magiromanya.com/">Magí Romanyà Serrasolsas</a>, Juan J. Casafranca and <a href="http://mslab.es/otaduy/">Miguel A. Otaduy</a></p>
+    <p class="journal">ACM Transactions on Graphics (TOG) Volume 44, Issue 4 (2025)</p>
+    <div class="pub-buttons"><a class="button" href="resources/publications/pdf/Painless-Differentiable-Rotation-Dynamics.pdf">PDF</a> <a class="button" href="https://youtu.be/w5Bn6r5ClRY">Video</a> <a class="button" href="https://mslab.es/projects/Painless/">Website</a></div>
+  </div>
+</div>
+</div>
+#+END_EXPORT

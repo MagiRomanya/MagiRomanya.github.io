@@ -4,23 +4,23 @@
 :PROPERTIES:
 :RSS_PERMALINK: posts/PlugJam.html
 :PUBDATE:  2024-03-03
-:ID:       5adeb212-749e-4920-9ed1-e1fd991853ba
+:ID:       52bb9d37-8ef6-4148-a963-bf941e6d1938
 :END:
 * Continuous Adjoint Method
 :PROPERTIES:
 :RSS_PERMALINK: posts/continuous_adjoint_method.html
 :PUBDATE:  2023-11-16
-:ID:       b69c30e6-871c-4de4-b201-bae8c826c0ec
+:ID:       091fdcda-2b45-4729-a641-e1e8ef76a8a8
 :END:
 * Visualization Of Gradient Fields
 :PROPERTIES:
 :RSS_PERMALINK: posts/visualization_of_gradient_fields.html
 :PUBDATE:  2023-10-06
-:ID:       d7e94513-9244-4516-bb08-525e1fb066d2
+:ID:       e1941fc3-5bbf-4079-9af4-475a115940de
 :END:
 * Differential Simulation and back-propagation
 :PROPERTIES:
 :RSS_PERMALINK: posts/differential_simulation.html
 :PUBDATE:  2023-09-06
-:ID:       ca3ef729-529e-46fb-a83c-bfb736295c55
+:ID:       a539e66a-2309-44f0-a2a4-8a9f69a17dea
 :END:
